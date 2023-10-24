@@ -12,7 +12,7 @@ import { getLogger } from '../../logger/logger.js';
  * Typdefinition für `findById`
  */
 export interface FindByIdParams {
-    /** ID des gesuchten Buchs */
+    /** ID des gesuchten Albums */
     readonly id: number;
     /** Sollen die Lieder mitgeladen werden? */
     readonly mitLieder?: boolean;
@@ -37,9 +37,6 @@ export class AlbumReadService {
     async findById({ id, mitLieder = false }: FindByIdParams) {
         this.#logger.debug('findById: id=%d', id);
 
-        // https://typeorm.io/working-with-repository
-        // Das Resultat ist undefined, falls kein Datensatz gefunden
-        // Lesen: Keine Transaktion erforderlich
         const album = await this.#queryBuilder
             .buildId({ id, mitLieder })
             .getOne();
@@ -51,13 +48,10 @@ export class AlbumReadService {
             this.#logger.debug(
                 'findById: album=%s, künstler=%o',
                 album.toString(),
-                album.künstler,
+                album.kuenstler,
             );
             if (mitLieder) {
-                this.#logger.debug(
-                    'findById: abbildungen=%o',
-                    album.lieder,
-                );
+                this.#logger.debug('findById: lieder=%o', album.lieder);
             }
         }
         return album;

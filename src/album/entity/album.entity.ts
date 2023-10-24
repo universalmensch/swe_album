@@ -1,8 +1,8 @@
-import { Künstler } from "./künstler.entity";
+import { Kuenstler } from "./kuenstler.entity";
 import { Lied } from "./lied.entity";
 
 export class Album {
-    readonly künstler: Künstler | undefined;
+    readonly kuenstler: Kuenstler | undefined;
 
     readonly lieder: Lied[] | undefined;
 }
