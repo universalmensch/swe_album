@@ -29,6 +29,13 @@ export class AlbumQueryResolver {
 
         const album = await this.#service.findById({ id });
 
+        if (this.#logger.isLevelEnabled('debug')) {
+            this.#logger.debug(
+                'findById: album=%s, kuenstler=%o',
+                album.toString(),
+                album.kuenstler,
+            );
+        }
         return album;
     }
 }
