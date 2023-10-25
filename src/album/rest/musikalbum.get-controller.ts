@@ -17,9 +17,9 @@ import {
 } from '@nestjs/swagger';
 import { type Album } from '../entity/Album.entity.js';
 import {
-    MusikalbumReadService,
+    AlbumReadService,
     type Suchkriterien,
-} from '../service/musikalbum-read.service.js';
+} from '../service/album-read.service.js';
 import {
     Controller,
     Get,
@@ -108,14 +108,14 @@ const APPLICATION_HAL_JSON = 'application/hal+json';
 @Controller(paths.rest)
 // @UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(ResponseTimeInterceptor)
-@ApiTags('Musikalbum REST-API')
+@ApiTags('Album REST-API')
 // @ApiBearerAuth()
-export class MusikalbumGetController {
-    readonly #service: MusikalbumReadService;
+export class AlbumGetController {
+    readonly #service: AlbumReadService;
 
-    readonly #logger = getLogger(MusikalbumGetController.name);
+    readonly #logger = getLogger(AlbumGetController.name);
 
-    constructor(service: MusikalbumReadService) {
+    constructor(service: AlbumReadService) {
         this.#service = service;
     }
 
