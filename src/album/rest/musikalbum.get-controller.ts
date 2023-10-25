@@ -7,7 +7,7 @@
 // eslint-disable-next-line max-classes-per-file
 import {
     ApiHeader,
-    ApiNotFoundResponse,hafthgfu
+    ApiNotFoundResponse,
     ApiOkResponse,
     ApiOperation,
     ApiParam,
