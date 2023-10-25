@@ -16,17 +16,23 @@ export class Kuenstler {
     id: number | undefined;
 
     @Column('varchar', { unique: true, length: 40 })
-    readonly kuenstler!: string;
+    readonly name!: string;
+
+    @Column('varchar', { unique: true, length: 40 })
+    readonly vorname!: string;
 
     @OneToOne(() => Album, (album) => album.name)
     @JoinColumn({ name: 'album_id' })
     album: Album | undefined;
 
+    @Column('int')
     readonly alter: number | undefined;
 
     public toString = (): string =>
         JSON.stringify({
             id: this.id,
-            kuenstler: this.kuenstler,
+            name: this.name,
+            vorname: this.vorname,
+            alter: this.alter,
         });
 }

@@ -19,17 +19,31 @@ export class Album {
 
     @Column('varchar', { length: 12 })
     @ApiProperty({ example: 'DRUCKAUSGABE', type: String })
-    readonly art: Genre | undefined;
+    readonly genre: Genre | undefined;
 
-    @OneToOne(() => Kuenstler, (kuenstler) => kuenstler.album, {
-        cascade: ['insert', 'remove'],
-    })
     @OneToMany(() => Lied, (lied) => lied.album, {
         cascade: ['insert', 'remove'],
     })
     readonly lieder: Lied[] | undefined;
 
+    @OneToOne(() => Kuenstler, (kuenstler) => kuenstler.album, {
+        cascade: ['insert', 'remove'],
+    })
     readonly kuenstler: Kuenstler | undefined;
 
+    @Column('varchar', { length: 40 })
     readonly name: string | undefined;
+
+    @Column('varchar', { length: 40 })
+    readonly titelbild: string | undefined;
+
+    public toString = (): string =>
+        JSON.stringify({
+            id: this.id,
+            genre: this.genre,
+            lieder: this.lieder,
+            kuenstler: this.kuenstler,
+            name: this.name,
+            titelbild: this.titelbild,
+        });
 }

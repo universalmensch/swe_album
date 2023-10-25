@@ -16,10 +16,10 @@ export class Lied {
     id: number | undefined;
 
     @Column('varchar', { unique: true, length: 32 })
-    readonly beschriftung!: string;
+    readonly name!: string | undefined;
 
     @Column('varchar', { length: 16 })
-    readonly contentType: string | undefined;
+    readonly dauer: string | undefined;
 
     @ManyToOne(() => Album, (album) => album.lieder)
     @JoinColumn({ name: 'album_id' })
@@ -28,7 +28,7 @@ export class Lied {
     public toString = (): string =>
         JSON.stringify({
             id: this.id,
-            beschriftung: this.beschriftung,
-            contentType: this.contentType,
+            name: this.name,
+            dauer: this.dauer,
         });
 }
