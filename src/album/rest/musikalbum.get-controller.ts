@@ -15,7 +15,7 @@ import {
     ApiResponse,
     ApiTags,
 } from '@nestjs/swagger';
-import { type Album } from '../entity/Album.entity.js';
+import { type Album } from '../entity/album.entity.js';
 import {
     AlbumReadService,
     type Suchkriterien,
