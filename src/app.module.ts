@@ -3,11 +3,11 @@ import {
     Module,
     type NestModule,
 } from '@nestjs/common';
+import { AlbumGetController } from './album/rest/album-get.controller.js';
+import { AlbumModule } from './album/album.module.js';
 import { type ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './security/auth/auth.module.js';
-import { BuchGetController } from './buch/rest/buch-get.controller.js';
-import { BuchModule } from './buch/buch.module.js';
-import { BuchWriteController } from './buch/rest/buch-write.controller.js';
+//import { BuchWriteController } from './buch/rest/buch-write.controller.js';
 import { DevModule } from './config/dev/dev.module.js';
 import { GraphQLModule } from '@nestjs/graphql';
 import { HealthModule } from './health/health.module.js';
@@ -20,7 +20,7 @@ import { typeOrmModuleOptions } from './config/db.js';
 @Module({
     imports: [
         AuthModule,
-        BuchModule,
+        AlbumModule,
         DevModule,
         GraphQLModule.forRoot<ApolloDriverConfig>(graphQlModuleOptions),
         LoggerModule,
@@ -33,8 +33,8 @@ export class AppModule implements NestModule {
         consumer
             .apply(RequestLoggerMiddleware)
             .forRoutes(
-                BuchGetController,
-                BuchWriteController,
+                AlbumGetController,
+                //BuchWriteController,
                 'auth',
                 'graphql',
             );
