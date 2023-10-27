@@ -14,7 +14,7 @@
 --     cd .extras\compose\db\postgres
 --     docker compose exec db bash
 --        chown postgres:postgres /var/lib/postgresql/tablespace
---        chown postgres:postgres /var/lib/postgresql/tablespace/buch
+--        chown postgres:postgres /var/lib/postgresql/tablespace/album
 --        chown postgres:postgres /var/lib/postgresql/private-key.pem
 --        chown postgres:postgres /var/lib/postgresql/certificate.cer
 --        chmod 600 /var/lib/postgresql/private-key.pem
@@ -31,38 +31,15 @@
 --     docker compose up db
 -- (5) 2. PowerShell:
 --     docker compose exec db bash
---        psql --dbname=postgres --username=postgres --file=/sql/create-db-buch.sql
---        psql --dbname=buch --username=buch --file=/sql/create-schema-buch.sql
+--        psql --dbname=postgres --username=postgres --file=/sql/create-db-album.sql
+--        psql --dbname=album --username=album --file=/sql/create-schema-album.sql
 --        exit
 --      docker compose down
 
--- TLS fuer den PostgreSQL-Server mit OpenSSL in einer PowerShell ueberpruefen:
--- openssl s_client -connect localhost:5432 -starttls postgres
---
---  Erlaeuterung:
---      "openssl s_client": baut eine Verbindung ohne Verschlüsselung auf (hier: Rechner localhost mit Port 5432)
---      "starttls postgres": Kommando STARTTLS wird zum Server gesendet für ein Upgrade
---                           zu einer sicheren bzw. verschlüsselten Verbindung,
---                           um danach ein "TLS Handshake" mit dem Protokoll "postgres" durchzuführen
---
--- Ausgabe:
--- * "Can't use SSL_get_servername": Server gehört zu mehreren Domains bei derselben IP-Adresse
--- * selbst-signiertes Zertifikat
--- * "Certificate chain" mit Distinguished Name: S(ubject), CN (Common Name), OU (Organizationl Unit), O(rganization),
---                                               L(ocation), ST(ate), C(ountry)
--- * "No client certificate CA names sent": der OpenSSL-Client hat keine "Certificate Authority" (CA) Namen gesendet
--- * Algorithmus (signing digest): SHA256
--- * Signatur-Typ: RSA-PSS
--- * "TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384"
--- * Schluessellaenge 2048 Bit
+CREATE ROLE album LOGIN PASSWORD 'p';
 
--- https://www.postgresql.org/docs/current/sql-createrole.html
-CREATE ROLE buch LOGIN PASSWORD 'p';
+CREATE DATABASE album;
 
--- https://www.postgresql.org/docs/current/sql-createdatabase.html
-CREATE DATABASE buch;
+GRANT ALL ON DATABASE album TO album;
 
-GRANT ALL ON DATABASE buch TO buch;
-
--- https://www.postgresql.org/docs/10/sql-createtablespace.html
-CREATE TABLESPACE buchspace OWNER buch LOCATION '/var/lib/postgresql/tablespace/buch';
+CREATE TABLESPACE albumspace OWNER album LOCATION '/var/lib/postgresql/tablespace/album';
