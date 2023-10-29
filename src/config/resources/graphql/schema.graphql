@@ -1,133 +1,41 @@
-# Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# siehe app.module.ts
-
 schema {
   query: Query
   mutation: Mutation
 }
 
-"Funktionen, um Bücherdaten zu lesen"
+"Funktionen, um Albendaten zu lesen"
 type Query {
-  buecher(titel: String): [Buch!]
+  alben(kuenstler: String): [Album!]
 
-  buch(id: ID!): Buch
+  album(id: ID!): Album
 }
 
-"Funktionen, um Bücher neu anzulegen, zu aktualisieren oder zu löschen"
-type Mutation {
-  create(input: BuchInput!): CreatePayload
-
-  update(input: BuchUpdateInput!): UpdatePayload
-
-  delete(id: ID!): Boolean
-
-  # Mutation, weil z.B. der Login-Zeitpunkt im IDM-System gespeichert wird
-  login(username: String!, password: String!): LoginResult
+"Daten zum Kuenstler eines Albums"
+type Kuenstler {
+  name: String!
+  vorname: String!
+  alter: Int
 }
 
-"Daten zum Titel eines Buches"
-type Titel {
-  titel: String!
-  untertitel: String
+"Daten zu einem Lied eines Albums"
+type Lied {
+  name: String!
+  dauer: Int
 }
 
-"Daten zum Titel eines Buches"
-type Abbildung {
-  beschriftung: String!
-  contentType: String
-}
-
-"Datenschema zu einem Buch, das gelesen wird"
-type Buch {
-  # ID ist bei Apollo ein String
+"Datenschema zu einem Album, das gelesen wird"
+type Album {
   id: Int!
-  version: Int!
-  isbn: String!
-  rating: Int
-  art: Art
-  preis: Float!
-  lieferbar: Boolean
-  datum: String
-  homepage: String
-  schlagwoerter: [String]
+  genre: Genre
   # 1:1-Beziehung
-  titel: Titel!
-  # field mit @ResolveField
-  rabatt(short: Boolean): String!
+  kuenstler: Kuenstler!
+  name: String!
+  titelbild: String!
 }
 
-"Enum-Typ für die Art eines Buches"
-enum Art {
-  DRUCKAUSGABE
-  KINDLE
-}
-
-"Daten zum Titel eines neuen Buches"
-input TitelInput {
-  titel: String!
-  untertitel: String
-}
-
-"Daten zu den Abbildungen eines Buches"
-input AbbildungInput {
-  beschriftung: String!
-  contentType: String!
-}
-
-"Daten für ein neues Buch"
-input BuchInput {
-  isbn: String
-  rating: Int
-  art: Art
-  preis: Float
-  rabatt: Float
-  lieferbar: Boolean
-  datum: String
-  homepage: String
-  schlagwoerter: [String]
-  titel: TitelInput!
-  abbildungen: [AbbildungInput!]
-}
-
-type CreatePayload {
-  id: Int
-}
-
-"Daten für ein zu änderndes Buch"
-input BuchUpdateInput {
-  id: ID
-  version: Int
-  isbn: String
-  rating: Int
-  art: Art
-  preis: Float
-  rabatt: Float
-  lieferbar: Boolean
-  datum: String
-  homepage: String
-  schlagwoerter: [String]
-}
-
-type UpdatePayload {
-  version: Int
-}
-
-type LoginResult {
-  token: String!
-  expiresIn: String!
-  roles: [String]!
+"Enum-Typ für das Genre eines Albums"
+enum Genre {
+  POP
+  RAP
+  ROCK
 }
