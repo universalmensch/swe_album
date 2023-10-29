@@ -1,5 +1,5 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { Logger, UseFilters, UseInterceptors } from '@nestjs/common';
+import { UseFilters, UseInterceptors } from '@nestjs/common';
 import { Album } from '../entity/album.entity.js';
 import { AlbumReadService } from '../service/album-read.service.js';
 import { HttpExceptionFilter } from './http-exception.filter.js';
@@ -37,5 +37,18 @@ export class AlbumQueryResolver {
             );
         }
         return album;
+    }
+
+    @Query('alben')
+    async find(@Args() kuenstler: { kuenstler: string } | undefined) {
+        const kuenstlerStr = kuenstler?.kuenstler;
+        this.#logger.debug('find: Suchkriterium kuenstler=%s', kuenstlerStr);
+        // eslint-disable-next-line max-len, prettier/prettier
+        const suchkriterium = kuenstlerStr === undefined ? {} : { kuenstler: kuenstlerStr };
+
+        const alben = await this.#service.find(suchkriterium);
+
+        this.#logger.debug('find: alben=%o', alben);
+        return alben;
     }
 }
