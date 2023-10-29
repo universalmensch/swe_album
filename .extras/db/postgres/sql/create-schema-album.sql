@@ -1,0 +1,3 @@
+CREATE SCHEMA IF NOT EXISTS AUTHORIZATION album;
+
+ALTER ROLE album SET search_path = 'album';
