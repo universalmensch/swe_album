@@ -1,4 +1,4 @@
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { UseFilters, UseInterceptors } from '@nestjs/common';
 import { Album } from '../entity/album.entity.js';
 import { AlbumReadService } from '../service/album-read.service.js';
