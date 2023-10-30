@@ -9,6 +9,9 @@ import { Injectable } from '@nestjs/common';
 import { Kuenstler } from '../entity/kuenstler.entity.js';
 import { Lied } from '../entity/lied.entity.js';
 import { Repository } from 'typeorm';
+import { type Suchkriterien } from './album-read.service.js';
+import { getLogger } from '../../logger/logger.js';
+import { typeOrmModuleOptions } from '../../config/db.js';
 
 /** Typdefinitionen für die Suche mit der Album-ID. */
 export interface BuildIdParams {
@@ -38,6 +41,8 @@ export class QueryBuilder {
 
     readonly #repo: Repository<Album>;
 
+    readonly #logger = getLogger(QueryBuilder.name);
+
     constructor(@InjectRepository(Album) repo: Repository<Album>) {
         this.#repo = repo;
     }
@@ -55,6 +60,83 @@ export class QueryBuilder {
             );
         }
         queryBuilder.where(`${this.#albumAlias}.id = :id`, { id });
+        return queryBuilder;
+    }
+
+    /**
+     * Alben asynchron suchen.
+     * @param suchkriterien JSON-Objekt mit Suchkriterien
+     * @returns QueryBuilder
+     */
+    // eslint-disable-next-line max-lines-per-function
+    build({ kuenstler, javascript, typescript, ...props }: Suchkriterien) {
+        this.#logger.debug(
+            'build: kuenstler=%s, props=%o',
+            kuenstler,
+            javascript,
+            typescript,
+            props,
+        );
+
+        let queryBuilder = this.#repo.createQueryBuilder(this.#albumAlias);
+        queryBuilder.innerJoinAndSelect(
+            `${this.#albumAlias}.kuenstler`,
+            'kuenstler',
+        );
+
+        let useWhere = true;
+
+        // Titel in der Query: Teilstring des Titels und "case insensitive"
+        // CAVEAT: MySQL hat keinen Vergleich mit "case insensitive"
+        // type-coverage:ignore-next-line
+        if (kuenstler !== undefined && typeof kuenstler === 'string') {
+            const ilike =
+                typeOrmModuleOptions.type === 'postgres' ? 'ilike' : 'like';
+            queryBuilder = queryBuilder.where(
+                `${this.#kuenstlerAlias}.name ${ilike} :name`,
+                { name: `%${name}%` },
+            );
+            useWhere = false;
+        }
+
+        if (javascript === 'true') {
+            queryBuilder = useWhere
+                ? queryBuilder.where(
+                      `${this.#albumAlias}.lieder like '%JAVASCRIPT%'`,
+                  )
+                : queryBuilder.andWhere(
+                      `${this.#albumAlias}.lieder like '%JAVASCRIPT%'`,
+                  );
+            useWhere = false;
+        }
+
+        if (typescript === 'true') {
+            queryBuilder = useWhere
+                ? queryBuilder.where(
+                      `${this.#albumAlias}.lieder like '%TYPESCRIPT%'`,
+                  )
+                : queryBuilder.andWhere(
+                      `${this.#albumAlias}.lieder like '%TYPESCRIPT%'`,
+                  );
+            useWhere = false;
+        }
+
+        Object.keys(props).forEach((key) => {
+            const param: Record<string, any> = {};
+            param[key] = (props as Record<string, any>)[key]; // eslint-disable-line @typescript-eslint/no-unsafe-assignment, security/detect-object-injection
+            queryBuilder = useWhere
+                ? queryBuilder.where(
+                      `${this.#albumAlias}.${key} = :${key}`,
+                      param,
+                  )
+                : queryBuilder.andWhere(
+                      `${this.#albumAlias}.${key} = :${key}`,
+                      param,
+                  );
+            useWhere = false;
+        });
+
+        this.#logger.debug('build: sql=%s', queryBuilder.getSql());
         return queryBuilder;
     }
 }
