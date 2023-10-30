@@ -3,12 +3,12 @@
  * @packageDocumentation
  */
 import { BASEDIR, config } from './app.js';
-import { Buch } from '../buch/entity/buch.entity.js';
+import { Album } from '../album/entity/album.entity.js';
 import { type DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { type TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { dbType } from './dbtype.js';
-import { entities } from '../buch/entity/entities.js';
+import { entities } from '../album/entity/entities.js';
 import { loggerDefaultValue } from './logger.js';
 import { nodeConfig } from './node.js';
 import { readFileSync } from 'node:fs';
@@ -17,11 +17,11 @@ import { resolve } from 'node:path';
 const { db } = config;
 
 // nullish coalescing
-const database = (db?.name as string | undefined) ?? Buch.name.toLowerCase();
+const database = (db?.name as string | undefined) ?? Album.name.toLowerCase();
 
 const host = (db?.host as string | undefined) ?? 'localhost';
 const username =
-    (db?.username as string | undefined) ?? Buch.name.toLowerCase();
+    (db?.username as string | undefined) ?? Album.name.toLowerCase();
 const pass = (db?.password as string | undefined) ?? 'p';
 const passAdmin = (db?.passwordAdmin as string | undefined) ?? 'p';
 

@@ -88,7 +88,7 @@ LABEL org.opencontainers.image.title="album" \
   org.opencontainers.image.description="Appserver album mit Basis-Image Debian Bookworm" \
   org.opencontainers.image.version="2023.10.0-bookworm" \
   org.opencontainers.image.licenses="GPL-3.0-or-later" \
-  org.opencontainers.image.authors="Gruppe4"
+  org.opencontainers.image.authors="gruppe4"
 
 RUN <<EOF
 set -ex
