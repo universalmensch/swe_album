@@ -64,7 +64,7 @@ export class QueryBuilder {
     }
 
     /**
-     * Bücher asynchron suchen.
+     * Alben asynchron suchen.
      * @param suchkriterien JSON-Objekt mit Suchkriterien
      * @returns QueryBuilder
      */
