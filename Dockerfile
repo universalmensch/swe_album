@@ -114,11 +114,11 @@ FROM gcr.io/distroless/nodejs20-debian12:nonroot
 # https://specs.opencontainers.org/image-spec/annotations
 # https://spdx.org/licenses
 # MAINTAINER ist deprecated https://docs.docker.com/engine/reference/builder/#maintainer-deprecated
-LABEL org.opencontainers.image.title="buch" \
-    org.opencontainers.image.description="Appserver buch mit distroless-Image" \
+LABEL org.opencontainers.image.title="album" \
+    org.opencontainers.image.description="Appserver album mit distroless-Image" \
     org.opencontainers.image.version="2023.10.0-distroless" \
     org.opencontainers.image.licenses="GPL-3.0-or-later" \
-    org.opencontainers.image.authors="Juergen.Zimmermann@h-ka.de"
+    org.opencontainers.image.authors="Gruppe4"
 
 WORKDIR /home/nonroot
 
