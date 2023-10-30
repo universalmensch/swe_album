@@ -6,7 +6,6 @@ schema {
 "Funktionen, um Albendaten zu lesen"
 type Query {
   alben(kuenstler: String): [Album!]
-
   album(id: ID!): Album
 }
 
