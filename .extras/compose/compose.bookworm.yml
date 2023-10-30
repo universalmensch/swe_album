@@ -1,6 +1,6 @@
 services:
   buch:
-    image: juergenzimmermann/buch:2023.10.0-bookworm
+    image: Gruppe4/album:2023.10.0-bookworm
     volumes:
       - type: bind
         source: app.yml
@@ -19,5 +19,5 @@ services:
         target: /home/node/dist/config/resources/jwt/private-key.pem
         read_only: true
       - type: bind
-        source: ../../src/config/resources/db/sqlite/buch.sqlite
-        target: /home/node/dist/config/resources/db/sqlite/buch.sqlite
+        source: ../../src/config/resources/db/sqlite/album.sqlite
+        target: /home/node/dist/config/resources/db/sqlite/album.sqlite
