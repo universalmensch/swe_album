@@ -18,7 +18,7 @@ export class Album {
     id: number | undefined;
 
     @Column('varchar', { length: 12 })
-    @ApiProperty({ example: 'DRUCKAUSGABE', type: String })
+    @ApiProperty({ example: 'POP', type: String })
     readonly genre: Genre | undefined;
 
     @OneToMany(() => Lied, (lied) => lied.album, {
