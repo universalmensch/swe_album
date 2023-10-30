@@ -19,7 +19,7 @@ export class Lied {
     readonly name!: string | undefined;
 
     @Column('varchar', { length: 16 })
-    readonly dauer: string | undefined;
+    readonly dauerInSekunden: number | undefined;
 
     @ManyToOne(() => Album, (album) => album.lieder)
     @JoinColumn({ name: 'album_id' })
@@ -29,6 +29,6 @@ export class Lied {
         JSON.stringify({
             id: this.id,
             name: this.name,
-            dauer: this.dauer,
+            dauer: String(this.dauerInSekunden),
         });
 }

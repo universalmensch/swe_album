@@ -32,10 +32,10 @@ export class Album {
     readonly kuenstler: Kuenstler | undefined;
 
     @Column('varchar', { length: 40 })
-    readonly name: string | undefined;
+    readonly name!: string;
 
     @Column('varchar', { length: 40 })
-    readonly titelbild: string | undefined;
+    readonly titelbild!: string;
 
     public toString = (): string =>
         JSON.stringify({
