@@ -3,12 +3,11 @@
  * @packageDocumentation
  */
 
+import { Album, type Genre } from '../entity/album.entity.js';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBuilder } from './query-builder.js';
 import RE2 from 're2';
 import { getLogger } from '../../logger/logger.js';
-import { Album, type Genre } from '../entity/album.entity.js';
-import { Kuenstler } from '../entity/kuenstler.entity';
 
 /**
  * Typdefinition für `findById`
