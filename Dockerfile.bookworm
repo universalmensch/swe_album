@@ -90,18 +90,17 @@ LABEL org.opencontainers.image.title="album" \
   org.opencontainers.image.licenses="GPL-3.0-or-later" \
   org.opencontainers.image.authors="gruppe4"
 
-RUN <<EOF
-set -ex
-apt-get update
+
+RUN set -ex
+RUN apt-get update
 # https://github.com/Yelp/dumb-init
 # https://packages.debian.org/bookworm/dumb-init
-apt-get install --no-install-recommends --yes dumb-init=1.2.5-2
+RUN apt-get install --no-install-recommends --yes dumb-init=1.2.5-2
 
-apt-get autoremove --yes
-apt-get clean --yes
-rm -rf /var/lib/apt/lists/*
-rm -rf /tmp/*
-EOF
+RUN apt-get autoremove --yes
+RUN apt-get clean --yes
+RUN rm -rf /var/lib/apt/lists/*
+RUN rm -rf /tmp/*
 
 WORKDIR /home/node
 
