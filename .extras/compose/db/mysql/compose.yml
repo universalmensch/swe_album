@@ -34,7 +34,7 @@ services:
         source: C:/Zimmermann/volumes/mysql/log
         target: /var/log
       - type: bind
-        source: C:/Zimmermann/volumes/mysql/csv/buch
+        source: C:/Zimmermann/volumes/mysql/csv/album
         # https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_secure_file_priv
         # SHOW VARIABLES LIKE "secure_file_priv";
         target: /var/lib/mysql-files

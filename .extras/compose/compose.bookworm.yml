@@ -1,6 +1,6 @@
 services:
-  buch:
-    image: Gruppe4/album:2023.10.0-bookworm
+  album:
+    image: gruppe4/album:2023.10.0-bookworm
     volumes:
       - type: bind
         source: app.yml
