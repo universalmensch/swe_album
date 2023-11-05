@@ -3,7 +3,7 @@
 services:
   trivy:
     image: aquasec/trivy:0.45.1
-    command: [image, juergenzimmermann/buch:2023.10.0-distroless]
+    command: [image, gruppe4/album:2023.10.0-distroless]
     volumes:
       - type: bind
         source: C:/Zimmermann/volumes/trivy

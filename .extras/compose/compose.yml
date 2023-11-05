@@ -55,7 +55,7 @@ services:
     environment:
       # https://docs.docker.com/compose/compose-file/compose-file-v3/#variable-substitution
       - USER_PASSWORD_ENCODED=$$argon2i$$v=19$$m=4096,t=3,p=1$$aaxA2v/9rRSPGkwYN+NQog$$27Huii1XtD3iEd62fog+04G26LRPZMHoYCI6AGKTL8M
-    hostname: buch
+    hostname: album
     cap_drop: [ALL]
     deploy:
       resources:
