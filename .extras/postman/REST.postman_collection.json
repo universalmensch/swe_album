@@ -58,7 +58,7 @@
 								{
 									"key": "id",
 									"value": "1",
-									"description": "Buch ID"
+									"description": "Album ID"
 								}
 							]
 						}
@@ -115,7 +115,7 @@
 								{
 									"key": "id",
 									"value": "1",
-									"description": "Buch ID"
+									"description": "Album ID"
 								}
 							]
 						}
@@ -177,7 +177,7 @@
 								{
 									"key": "id",
 									"value": "1",
-									"description": "Buch ID"
+									"description": "Album ID"
 								}
 							]
 						}
@@ -237,7 +237,7 @@
 								{
 									"key": "id",
 									"value": "999999",
-									"description": "Buch ID"
+									"description": "Album ID"
 								}
 							]
 						}
@@ -245,7 +245,7 @@
 					"response": []
 				}
 			],
-			"description": "Über die REST-Schnittstelle nach Büchern anhand der ID suchen."
+			"description": "Über die REST-Schnittstelle nach Alben anhand der ID suchen."
 		},
 		{
 			"name": "Suche mit Suchkriterien",
