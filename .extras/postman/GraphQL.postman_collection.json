@@ -30,6 +30,7 @@
 									"    pm.expect(genre).to.be.a('string');\r",
 									"    pm.expect(kuenstler.name).to.be.a('string');\r",
 									"    pm.expect(kuenstler.vorname).to.be.a('string');\r",
+									"    pm.expect(kuenstler.alter).to.be.a('number').that.is.gte(0);\r",
 									"    pm.expect(name).to.be.a('string');\r",
 									"    pm.expect(titelbild).to.be.a('string');\r",
 									"});"
