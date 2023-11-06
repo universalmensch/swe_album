@@ -6,8 +6,8 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Kuenstler } from './kuenstler.entity';
-import { Lied } from './lied.entity';
+import { Kuenstler } from './kuenstler.entity.js';
+import { Lied } from './lied.entity.js';
 
 export type Genre = 'POP' | 'RAP' | 'ROCK';
 
