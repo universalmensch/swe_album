@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS album (
 ) TABLESPACE buchspace;
 
 CREATE TABLE IF NOT EXISTS kuenstler (
-    id          integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE buchspace,
+    id          integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE albumspace,
     name        varchar(40) NOT NULL,
     vorname     varchar(40),
     alter       integer NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS kuenstler (
 
 
 CREATE TABLE IF NOT EXISTS lied (
-    id              integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE buchspace,
+    id              integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE albumspace,
     name            varchar(40) NOT NULL,
     dauerinsekunden integer NOT NULL,
     album_id        integer NOT NULL REFERENCES album
