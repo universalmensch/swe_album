@@ -52,11 +52,9 @@ RUN npm i -g --no-audit --no-fund npm
 
 USER node
 
-RUN <<EOF
 # ci (= clean install) mit package-lock.json
-npm ci --no-audit --no-fund
-npm run build
-EOF
+RUN npm ci --no-audit --no-fund
+RUN npm run build
 
 # ------------------------------------------------------------------------------
 # S t a g e   D e p s
