@@ -5,6 +5,10 @@
 
 // eslint-disable-next-line max-classes-per-file
 import {
+    AlbumReadService,
+    type Suchkriterien,
+} from '../service/album-read.service.js';
+import {
     ApiHeader,
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -14,11 +18,6 @@ import {
     ApiResponse,
     ApiTags,
 } from '@nestjs/swagger';
-import { type Album } from '../entity/album.entity.js';
-import {
-    AlbumReadService,
-    type Suchkriterien,
-} from '../service/album-read.service.js';
 import {
     Controller,
     Get,
@@ -31,12 +30,15 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { type Album } from '../entity/album.entity.js';
+import { Genre } from '../entity/album.entity';
+import { type Kuenstler } from '../entity/kuenstler.entity.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { getBaseUri } from './getBaseUri.js';
 import { getLogger } from '../../logger/logger.js';
 import { paths } from '../../config/paths.js';
 
-import { type Kuenstler } from '../entity/kuenstler.entity.js';
+//import { Kuenstler } from '../entity/kuenstler.entity';
 
 /** href-Link für HATEOAS */
 export interface Link {
@@ -64,9 +66,9 @@ export type KuenstlerModel = Omit<Kuenstler, 'album' | 'id'>;
 /** Album-Objekt mit HATEOAS-Links */
 export type AlbumModel = Omit<
     Album,
-    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler'  //?????????????????
+    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler'
 > & {
-    titel: KuenstlerModel;
+    kuenstler: KuenstlerModel;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     _links: Links;
 };
@@ -84,10 +86,13 @@ export class AlbumQuery implements Suchkriterien {
     declare readonly name: string;
 
     @ApiProperty({ required: false })
-    declare readonly genre: string;
+    declare readonly alter: number;
 
     @ApiProperty({ required: false })
-    declare readonly titelbild: string; //??????????????????????ß
+    declare readonly genre: Genre;
+
+    @ApiProperty({ required: false })
+    declare readonly titelbild: string;
 
     @ApiProperty({ required: false })
     declare readonly javascript: string;
@@ -169,15 +174,15 @@ export class AlbumGetController {
             this.#logger.debug('getById(): kuenstler=%o', album.kuenstler);
         }
 
-        const versionDb = album.version;
+        /**const versionDb = album.version;
         if (version === `"${versionDb}"`) {
             this.#logger.debug('getById: NOT_MODIFIED');
             return res.sendStatus(HttpStatus.NOT_MODIFIED);
         }
         this.#logger.debug('getById: versionDb=%s', versionDb);
         res.header('ETag', `"${versionDb}"`);
-
-        const albumModel = this.#toModel(album, req); //?????????????
+        */
+        const albumModel = this.#toModel(album, req);
         this.#logger.debug('getById: albumModel=%o', albumModel);
         return res.contentType(APPLICATION_HAL_JSON).json(albumModel);
     }
@@ -203,10 +208,10 @@ export class AlbumGetController {
             return res.sendStatus(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        const alben : AlbumModel[] = await this.#service.find(query); // warum nicht automatisch albummodel
+        const alben = await this.#service.find(query); // warum nicht automatisch albummodel
         this.#logger.debug('get: %o', alben);
 
-        const albenModel = alben.map((album : Album) => // warm nicht automatisch album
+        const albenModel = alben.map((album) =>
             this.#toModel(album, req, false),
         );
         this.#logger.debug('get: albenModel=%o', albenModel);
@@ -231,13 +236,15 @@ export class AlbumGetController {
 
         this.#logger.debug('#toModel: album=%o, links=%o', album, links);
         const kuenstlerModel: KuenstlerModel = {
-            kuenstler: album.kuenstler?.kuenstler ?? 'N/A', // eslint-disable-line unicorn/consistent-destructuring
-            untertitel: album.kuenstler?.untertitel ?? 'N/A', // eslint-disable-line unicorn/consistent-destructuring
+            name: album.kuenstler?.name ?? 'N/A', // eslint-disable-line unicorn/consistent-destructuring
+            vorname: album.kuenstler?.vorname ?? 'N/A', // eslint-disable-line unicorn/consistent-destructuring
+            alter: album.kuenstler?.alter ?? undefined, // eslint-disable-line unicorn/consistent-destructuring
         };
         /* eslint-disable unicorn/consistent-destructuring */
         const albumModel: AlbumModel = {
             name: album.name,
-            genre: album.genre,   //?????????????????????????????????????????????
+            genre: album.genre,
+            titelbild: album.titelbild,
             kuenstler: kuenstlerModel,
             _links: links,
         };
@@ -246,4 +253,3 @@ export class AlbumGetController {
         return albumModel;
     }
 }
-/* eslint-enable max-lines */
