@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "0705d9aa-e95f-45a1-bf4f-3d13f7ffcda6",
+		"name": "GraphQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30646332"
+	},
+	"item": [
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "Suche genre, name, titelbild und kuenstler eines Albums mit der ID 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Statuscode 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test('Content-Type application/json', () => {\r",
+									"    const { response } = pm;\r",
+									"    const contentType = response.headers.get('Content-Type');\r",
+									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+									"});\r",
+									"pm.test('Body mit den Properties', () => {\r",
+									"    const body = pm.response.json();\r",
+									"    const { album } = body.data;\r",
+									"    const { genre, name, titelbild, kuenstler } = album;\r",
+									"    pm.expect(genre).to.be.a('string');\r",
+									"    pm.expect(name).to.be.a('string');\r",
+									"    pm.expect(titelbild).to.be.a('string');\r",
+									"    pm.expect(kuenstler.vorname).to.be.a('string');\r",
+									"    pm.expect(kuenstler.nachname).to.be.a('string');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($id: ID! = \"1\") {\r\n  album(id: $id) {\r\n    genre\r\n    name\r\n    titelbild\r\n    kuenstler {\r\n      vorname\r\n      nachname\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"id\": \"1\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphql_url}}",
+							"host": [
+								"{{graphql_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "graphql_url",
+			"value": "{{base_url}}/graphql"
+		}
+	]
+}
