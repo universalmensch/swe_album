@@ -66,7 +66,7 @@ export type KuenstlerModel = Omit<Kuenstler, 'album' | 'id'>;
 /** Album-Objekt mit HATEOAS-Links */
 export type AlbumModel = Omit<
     Album,
-    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler' //?????????????????
+    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler'
 > & {
     kuenstler: KuenstlerModel;
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -174,7 +174,7 @@ export class AlbumGetController {
             this.#logger.debug('getById(): kuenstler=%o', album.kuenstler);
         }
 
-        /**const versionDb = album.version; // brauchen glaube noch version in album.entity
+        /**const versionDb = album.version;
         if (version === `"${versionDb}"`) {
             this.#logger.debug('getById: NOT_MODIFIED');
             return res.sendStatus(HttpStatus.NOT_MODIFIED);
@@ -182,7 +182,7 @@ export class AlbumGetController {
         this.#logger.debug('getById: versionDb=%s', versionDb);
         res.header('ETag', `"${versionDb}"`);
         */
-        const albumModel = this.#toModel(album, req); //?????????????
+        const albumModel = this.#toModel(album, req);
         this.#logger.debug('getById: albumModel=%o', albumModel);
         return res.contentType(APPLICATION_HAL_JSON).json(albumModel);
     }
