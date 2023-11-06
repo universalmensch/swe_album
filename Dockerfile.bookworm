@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   docker buildx build --sbom true --tag juergenzimmermann/buch:2023.10.0-bookworm --file Dockerfile.bookworm .
+# Aufruf:   docker build --sbom true --tag juergenzimmermann/album:2023.10.0-bookworm --file Dockerfile.bookworm .
 #               ggf. --progress=plain
 #               ggf. --no-cache
 #           Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
@@ -29,7 +29,7 @@
 # https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker
 # https://cheatsheetseries.owasp.org/cheatsheets/NodeJS_Docker_Cheat_Sheet.html
 
-ARG NODE_VERSION=20.8.1
+ARG NODE_VERSION=21.0.0
 
 # ---------------------------------------------------------------------------------------
 # S t a g e   b u i l d e r
@@ -37,20 +37,26 @@ ARG NODE_VERSION=20.8.1
 FROM node:${NODE_VERSION}-bookworm-slim AS builder
 # FROM node:${NODE_VERSION}-bookworm AS builder
 
+# ggf. Python fuer re2 und Argon2
+# https://packages.debian.org/bookworm/python3.11-minimal
+# "python3-dev" enthaelt "multiprocessing"
+# "build-essential" enthaelt "make"
+
+RUN set -ex
+RUN apt-get update
+RUN apt-get upgrade
+# Python 3.12 enthaelt nicht mehr "distutils" fuer "node-gyp"
+RUN apt-get install --no-install-recommends --yes python3.11=3.11.2-6 python3.11-dev=3.11.2-6 build-essential=12.9
+RUN ln -s /usr/bin/python3.11 /usr/bin/python3
+RUN ln -s /usr/bin/python3.11 /usr/bin/python
+RUN npm i -g --no-audit --no-fund npm
+
+USER node
+
 WORKDIR /home/node
 
 COPY package.json package-lock.json nest-cli.json tsconfig*.json ./
 COPY src ./src
-
-# ggf. Python fuer re2 und Argon2
-# https://packages.debian.org/bookworm/python3-minimal
-# "python3-dev" enthaelt "multiprocessing"
-# "build-essential" enthaelt "make"
-# apt-get install --no-install-recommends --yes python3.11-minimal=3.11.2-6 python3.11-dev=3.11.2-6 build-essential=12.9
-
-RUN npm i -g --no-audit --no-fund npm
-
-USER node
 
 # ci (= clean install) mit package-lock.json
 RUN npm ci --no-audit --no-fund
@@ -61,9 +67,15 @@ RUN npm run build
 # ------------------------------------------------------------------------------
 FROM node:${NODE_VERSION}-bookworm-slim AS deps
 
-WORKDIR /home/node
-
+RUN set -ex
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt-get install --no-install-recommends --yes python3.11-minimal=3.11.2-6 python3.11-dev=3.11.2-6 build-essential=12.9
+RUN ln -s /usr/bin/python3.11 /usr/bin/python3
+RUN ln -s /usr/bin/python3.11 /usr/bin/python
 RUN npm i -g --no-audit --no-fund npm
+
+WORKDIR /home/node
 
 USER node
 
@@ -86,8 +98,7 @@ LABEL org.opencontainers.image.title="album" \
   org.opencontainers.image.description="Appserver album mit Basis-Image Debian Bookworm" \
   org.opencontainers.image.version="2023.10.0-bookworm" \
   org.opencontainers.image.licenses="GPL-3.0-or-later" \
-  org.opencontainers.image.authors="gruppe4"
-
+  org.opencontainers.image.authors="Gruppe4"
 
 RUN set -ex
 RUN apt-get update
@@ -100,7 +111,7 @@ RUN apt-get clean --yes
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /tmp/*
 
-WORKDIR /home/node
+WORKDIR /opt/app
 
 USER node
 

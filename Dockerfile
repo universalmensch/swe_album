@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   docker buildx build --sbom true --tag juergenzimmermann/buch:2023.10.0-distroless .
+# Aufruf:   docker build --sbom true --tag juergenzimmermann/album:2023.10.0-distroless .
 #               ggf. --progress=plain
 #               ggf. --no-cache
 #           Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
@@ -54,6 +54,10 @@ COPY src ./src
 # apt-get install --no-install-recommends --yes python3.11-minimal=3.11.2-6 python3.11-dev=3.11.2-6 build-essential=12.9
 
 RUN npm i -g --no-audit --no-fund npm
+# RUN <<EOF
+# npm i -g --no-audit --no-fund npm
+# chmod 666 package*.json
+# EOF
 
 USER node
 
@@ -120,9 +124,7 @@ LABEL org.opencontainers.image.title="album" \
     org.opencontainers.image.licenses="GPL-3.0-or-later" \
     org.opencontainers.image.authors="Gruppe4"
 
-WORKDIR /home/nonroot
-
-USER nonroot
+WORKDIR /opt/app
 
 COPY --chown=nonroot:nonroot package.json .env ./
 COPY --from=deps --chown=nonroot:nonroot /home/node/node_modules ./node_modules
@@ -130,6 +132,7 @@ COPY --from=builder --chown=nonroot:nonroot /home/node/dist ./dist
 COPY --chown=nonroot:nonroot src/config/resources ./dist/config/resources
 COPY --from=dumb-init /usr/bin/dumb-init /usr/bin/dumb-init
 
+USER nonroot
 EXPOSE 3000
 
 # Bei CMD statt ENTRYPOINT kann das Kommando bei "docker run ..." ueberschrieben werden
