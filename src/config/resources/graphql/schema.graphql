@@ -1,6 +1,5 @@
 schema {
   query: Query
-  mutation: Mutation
 }
 
 "Funktionen, um Albendaten zu lesen"
@@ -26,7 +25,6 @@ type Lied {
 type Album {
   id: Int!
   genre: Genre
-  # 1:1-Beziehung
   kuenstler: Kuenstler!
   name: String!
   titelbild: String!
