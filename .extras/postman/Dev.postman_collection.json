@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "c0848e02-346a-420e-9ede-002596aa7311",
+		"name": "Dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30029937"
+	},
+	"item": [
+		{
+			"name": "DB neu laden",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url: 'https://localhost:3000/auth/login',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/x-www-form-urlencoded'\r",
+							"    },\r",
+							"    body: 'username=admin&password=p',\r",
+							"}, (err, res) => pm.collectionVariables.set('TOKEN', res.json().token));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Statuscode 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Content-Type application/json', () => {\r",
+							"    const { response } = pm;\r",
+							"    const contentType = response.headers.get('Content-Type');\r",
+							"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+							"});\r",
+							"pm.test('Body mit \"success\"', () => {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.db_populate).to.be.equal('success');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/dev/db_populate",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dev",
+						"db_populate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

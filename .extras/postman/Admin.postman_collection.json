@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "72b46a9b-bf80-40de-b76f-fb2b5465d94a",
+		"name": "Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30029937"
+	},
+	"item": [
+		{
+			"name": "Liveness",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Statuscode 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Content-Type application/json', () => {\r",
+							"    const { response } = pm;\r",
+							"    const contentType = response.headers.get('Content-Type');\r",
+							"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+							"});\r",
+							"pm.test('Status im Body ueberpruefen', () => {\r",
+							"    const body = pm.response.json();\r",
+							"    const { status, info, error } = body\r",
+							"    pm.expect(status).to.be.equal('ok');\r",
+							"    pm.expect(info.appserver.status).to.be.equal('up');\r",
+							"    pm.expect(error).to.be.an('object').that.is.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{health_url}}/liveness",
+					"host": [
+						"{{health_url}}"
+					],
+					"path": [
+						"liveness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Readiness",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Statuscode 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Content-Type application/json', () => {\r",
+							"    const { response } = pm;\r",
+							"    const contentType = response.headers.get('Content-Type');\r",
+							"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+							"});\r",
+							"pm.test('Status im Body ueberpruefen', () => {\r",
+							"    const body = pm.response.json();\r",
+							"    const { status, info, error } = body\r",
+							"    pm.expect(status).to.be.equal('ok');\r",
+							"    pm.expect(info.db.status).to.be.equal('up');\r",
+							"    pm.expect(error).to.be.an('object').that.is.empty;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{health_url}}/readiness",
+					"host": [
+						"{{health_url}}"
+					],
+					"path": [
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "health_url",
+			"value": "{{base_url}}/health",
+			"type": "string"
+		}
+	]
+}
