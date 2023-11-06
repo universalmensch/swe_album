@@ -1,4 +1,4 @@
-//import { AlbumGetController } from './rest/album-get.controller.js';
+import { AlbumGetController } from './rest/album-get.controller.js';
 import { AlbumQueryResolver } from './graphql/album-query.resolver.js';
 import { AlbumReadService } from './service/album-read.service.js';
 import { AuthModule } from '../security/auth/auth.module.js';
@@ -23,7 +23,7 @@ import { entities } from './entity/entities.js';
  */
 @Module({
     imports: [MailModule, TypeOrmModule.forFeature(entities), AuthModule],
-    //controllers: [AlbumGetController],
+    controllers: [AlbumGetController],
     // Provider sind z.B. Service-Klassen fuer DI
     providers: [
         AlbumReadService,

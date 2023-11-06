@@ -3,7 +3,7 @@ import {
     Module,
     type NestModule,
 } from '@nestjs/common';
-//import { AlbumGetController } from './album/rest/album-get.controller.js';
+import { AlbumGetController } from './album/rest/album-get.controller.js';
 import { AlbumModule } from './album/album.module.js';
 import { type ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './security/auth/auth.module.js';
@@ -28,13 +28,12 @@ import { typeOrmModuleOptions } from './config/db.js';
         TypeOrmModule.forRoot(typeOrmModuleOptions),
     ],
 })
-
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(RequestLoggerMiddleware)
             .forRoutes(
-                //AlbumGetController,
+                AlbumGetController,
                 //BuchWriteController,
                 'auth',
                 'graphql',

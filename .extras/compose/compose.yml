@@ -23,8 +23,8 @@ include:
 
 # https://docs.docker.com/compose/compose-file/05-services
 services:
-  buch:
-    image: juergenzimmermann/buch:2023.10.0-distroless
+  album:
+    image: gruppe4/album:2023.10.0-distroless
     depends_on:
       db:
         condition: service_healthy
