@@ -3,6 +3,16 @@ schema {
   mutation: Mutation
 }
 
+type Mutation {
+  create(input: AlbumInput!): CreatePayload
+
+  update(input: AlbumUpdateInput!): UpdatePayload
+
+  delete(id: ID!): Boolean
+
+  login(username: String!, password: String!): LoginResult
+}
+
 "Funktionen, um Albendaten zu lesen"
 type Query {
   alben(kuenstler: String): [Album!]
@@ -26,7 +36,6 @@ type Lied {
 type Album {
   id: Int!
   genre: Genre
-  # 1:1-Beziehung
   kuenstler: Kuenstler!
   name: String!
   titelbild: String!
@@ -37,4 +46,49 @@ enum Genre {
   POP
   RAP
   ROCK
+}
+
+"Daten zum Kuenstler eines neuen Album"
+input KuenstlerInput {
+  vorname: String!
+  nachename: String!
+  alter: Int
+}
+
+"Daten zu den Liedern eines Albums"
+input LiedInput {
+  name: String!
+  dauerInSekunden: Int
+}
+
+"Daten für ein neues Album"
+input AlbumInput {
+  genre: Genre
+  name: String!
+  titelbild: String!
+  kuenstler: KuenstlerInput!
+  lieder: [LiedInput!]
+}
+
+type CreatePayload {
+  id: Int
+}
+
+"Daten für ein zu änderndes Album"
+input AlbumUpdateInput {
+  id: ID
+  version: Int
+  genre: Genre
+  name: String!
+  titelbild: String!
+}
+
+type UpdatePayload {
+  version: Int
+}
+
+type LoginResult {
+  token: String!
+  expiresIn: String!
+  roles: [String]!
 }
