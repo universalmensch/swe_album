@@ -34,23 +34,23 @@ services:
     volumes:
       - type: bind
         source: app.yml
-        target: /home/nonroot/dist/config/resources/app.yml
+        target: /opt/app/dist/config/resources/app.yml
         read_only: true
       - type: bind
         source: ../../log
-        target: /home/nonroot/log
+        target: /opt/app/log
         read_only: true
       - type: bind
         source: ../../src/config/resources/tls/private-key.pem
-        target: /home/nonroot/dist/config/resources/tls/private-key.pem
+        target: /opt/app/dist/config/resources/tls/private-key.pem
         read_only: true
       - type: bind
         source: ../../src/config/resources/jwt/private-key.pem
-        target: /home/nonroot/dist/config/resources/jwt/private-key.pem
+        target: /opt/app/dist/config/resources/jwt/private-key.pem
         read_only: true
       - type: bind
         source: ../../src/config/resources/db/sqlite/buch.sqlite
-        target: /home/nonroot/dist/config/resources/db/sqlite/buch.sqlite
+        target: /opt/app/dist/config/resources/db/sqlite/buch.sqlite
     env_file: app.env
     environment:
       # https://docs.docker.com/compose/compose-file/compose-file-v3/#variable-substitution
