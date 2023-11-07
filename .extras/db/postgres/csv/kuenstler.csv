@@ -1,5 +1,5 @@
-id;name;vorname;album_id;alter
-1;Kraus;Konstantin;1;26
-2;Grzalik;Melvin;10;22
-3;Justus;Niklas;20;25
-4;Tran;Mike;30;32
+id;name;vorname;alter;album_id
+1;Kraus;Konstantin;26;1
+2;Grzalik;Melvin;22;10
+3;Justus;Niklas;25;20
+4;Tran;Mike;32;30
