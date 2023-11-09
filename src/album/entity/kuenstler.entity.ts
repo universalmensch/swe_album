@@ -21,7 +21,7 @@ export class Kuenstler {
     @Column('varchar', { unique: true, length: 40 })
     readonly vorname!: string;
 
-    @OneToOne(() => Album, (album) => album.name)
+    @OneToOne(() => Album, (album) => album.kuenstler)
     @JoinColumn({ name: 'album_id' })
     album: Album | undefined;
 
