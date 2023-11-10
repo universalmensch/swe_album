@@ -60,7 +60,7 @@ export class AlbumReadService {
 
         if (this.#logger.isLevelEnabled('debug')) {
             this.#logger.debug(
-                'findById: album=%s, künstler=%o',
+                'findById: album=%s, kuenstler=%o',
                 album.toString(),
                 album.kuenstler,
             );
