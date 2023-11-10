@@ -50,7 +50,7 @@ export class QueryBuilder {
     buildId({ id, mitLieder = false }: BuildIdParams) {
         const queryBuilder = this.#repo.createQueryBuilder(this.#albumAlias);
         queryBuilder.innerJoinAndSelect(
-            `${this.#albumAlias}.künstler`,
+            `${this.#albumAlias}.kuenstler`,
             this.#kuenstlerAlias,
         );
         if (mitLieder) {

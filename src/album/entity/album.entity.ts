@@ -41,8 +41,6 @@ export class Album {
         JSON.stringify({
             id: this.id,
             genre: this.genre,
-            lieder: this.lieder,
-            kuenstler: this.kuenstler,
             name: this.name,
             titelbild: this.titelbild,
         });
