@@ -10,8 +10,6 @@ import { Album } from './album.entity.js';
 @Entity()
 export class Kuenstler {
     @Column('int')
-    // https://typeorm.io/entities#primary-columns
-    // CAVEAT: zuerst @Column() und erst dann @PrimaryGeneratedColumn()
     @PrimaryGeneratedColumn()
     id: number | undefined;
 

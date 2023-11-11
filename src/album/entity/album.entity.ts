@@ -1,13 +1,17 @@
 import {
     Column,
+    CreateDateColumn,
     Entity,
     OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
+    UpdateDateColumn,
+    VersionColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Kuenstler } from './kuenstler.entity.js';
 import { Lied } from './lied.entity.js';
+import { dbType } from '../../config/dbtype.js';
 
 export type Genre = 'POP' | 'RAP' | 'ROCK';
 
@@ -16,6 +20,9 @@ export class Album {
     @Column('int')
     @PrimaryGeneratedColumn()
     id: number | undefined;
+
+    @VersionColumn()
+    readonly version: number | undefined;
 
     @Column('varchar', { length: 12 })
     @ApiProperty({ example: 'POP', type: String })
@@ -36,6 +43,16 @@ export class Album {
 
     @Column('varchar', { length: 40 })
     readonly titelbild!: string;
+
+    @CreateDateColumn({
+        type: dbType === 'sqlite' ? 'datetime' : 'timestamp',
+    })
+    readonly erzeugt: Date | undefined;
+
+    @UpdateDateColumn({
+        type: dbType === 'sqlite' ? 'datetime' : 'timestamp',
+    })
+    readonly aktualisiert: Date | undefined;
 
     public toString = (): string =>
         JSON.stringify({
