@@ -6,10 +6,6 @@ schema {
 type Mutation {
   create(input: AlbumInput!): CreatePayload
 
-  update(input: AlbumUpdateInput!): UpdatePayload
-
-  delete(id: ID!): Boolean
-
   login(username: String!, password: String!): LoginResult
 }
 
@@ -72,19 +68,6 @@ input AlbumInput {
 
 type CreatePayload {
   id: Int
-}
-
-"Daten für ein zu änderndes Album"
-input AlbumUpdateInput {
-  id: ID
-  version: Int
-  genre: Genre
-  name: String!
-  titelbild: String!
-}
-
-type UpdatePayload {
-  version: Int
 }
 
 type LoginResult {
