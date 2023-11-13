@@ -915,6 +915,28 @@
 					},
 					"response": []
 				}
+			],
+			"description": "Über die REST-Schnittstelle neue Alben anlegen",
+			"auth": {
+				"type": "inherit"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url: 'https://localhost:3000/auth/login',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/x-www-form-urlencoded'\r",
+							"    },\r",
+							"    body: 'username=admin&password=p',\r",
+							"}, (err, res) => pm.collectionVariables.set('TOKEN', res.json().token));"
+						],
+						"type": "text/javascript"
+					}
+				}
 			]
 		},
 		{
@@ -1225,6 +1247,27 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "inherit"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url: 'https://localhost:3000/auth/login',\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/x-www-form-urlencoded',\r",
+							"    },\r",
+							"    body: 'username=admin&password=p',\r",
+							"}, (err, res) => pm.collectionVariables.set('TOKEN', res.json().token));"
+						],
+						"type": "text/javascript"
+					}
 				}
 			]
 		}

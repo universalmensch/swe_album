@@ -3,6 +3,7 @@
  * @packageDocumentation
  */
 
+import { AlbumDTO, AlbumDtoOhneRef } from './albumDTO.entity.js';
 import {
     ApiBadRequestResponse,
     ApiBearerAuth,
@@ -30,13 +31,12 @@ import {
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
-import { AlbumDTO, AlbumDtoOhneRef } from './albumDTO.entity.js';
 import { Request, Response } from 'express';
 import { type Album } from '../entity/album.entity.js';
-import { type Lied } from '../entity/lied.entity.js';
 import { AlbumWriteService } from '../service/album-write.service.js';
 import { JwtAuthGuard } from '../../security/auth/jwt/jwt-auth.guard.js';
 import { type Kuenstler } from '../entity/kuenstler.entity.js';
+import { type Lied } from '../entity/lied.entity.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { RolesAllowed } from '../../security/auth/roles/roles-allowed.decorator.js';
 import { RolesGuard } from '../../security/auth/roles/roles.guard.js';
