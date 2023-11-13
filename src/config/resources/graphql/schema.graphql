@@ -46,8 +46,8 @@ enum Genre {
 
 "Daten zum Kuenstler eines neuen Album"
 input KuenstlerInput {
+  name: String!
   vorname: String!
-  nachename: String!
   alter: Int
 }
 
