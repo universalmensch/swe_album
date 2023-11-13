@@ -1,12 +1,12 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { type Album } from '../entity/album.entity.js';
-import { type Lied } from '../entity/lied.entity.js';
 import { AlbumDTO } from '../rest/albumDTO.entity.js';
 import { AlbumWriteService } from '../service/album-write.service.js';
 import { HttpExceptionFilter } from './http-exception.filter.js';
 import { JwtAuthGraphQlGuard } from '../../security/auth/jwt/jwt-auth-graphql.guard.js';
 import { type Kuenstler } from '../entity/kuenstler.entity.js';
+import { type Lied } from '../entity/lied.entity.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { RolesAllowed } from '../../security/auth/roles/roles-allowed.decorator.js';
 import { RolesGraphQlGuard } from '../../security/auth/roles/roles-graphql.guard.js';

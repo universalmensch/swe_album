@@ -172,7 +172,7 @@ export class AlbumWriteController {
     }
 
     #albumDtoToAlbum(albumDTO: AlbumDTO): Album {
-        const kuenstlerlDTO = albumDTO.kuenstler;
+        const kuenstlerDTO = albumDTO.kuenstler;
         const kuenstler: Kuenstler = {
             id: undefined,
             name: kuenstlerDTO.name,
@@ -184,7 +184,7 @@ export class AlbumWriteController {
             const lied: Lied = {
                 id: undefined,
                 name: liedDTO.name,
-                dauer: liedDTO.dauer,
+                dauerInSekunden: liedDTO.dauerInSekunden,
                 album: undefined,
             };
             return lied;

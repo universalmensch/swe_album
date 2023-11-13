@@ -25,7 +25,7 @@ export class AlbumDTO extends AlbumDtoOhneRef {
     @ValidateNested()
     @Type(() => KuenstlerDTO)
     @ApiProperty({ type: KuenstlerDTO })
-    readonly titel!: KuenstlerDTO; //NOSONAR
+    readonly kuenstler!: KuenstlerDTO; //NOSONAR
 
     @IsOptional()
     @IsArray()

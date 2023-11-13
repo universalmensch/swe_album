@@ -7,11 +7,15 @@ export class KuenstlerDTO {
     @Matches('^\\w.*')
     @MaxLength(40)
     @ApiProperty({ example: 'Der Name', type: String })
-    readonly titel!: string;
+    readonly name!: string;
+
+    @Matches('^\\w.*')
+    @MaxLength(40)
+    @ApiProperty({ example: 'Der Name', type: String })
+    readonly vorname!: string;
 
     @IsOptional()
-    @MaxLength(40)
-    @ApiProperty({ example: 'Der Vorname', type: String })
-    readonly untertitel: string | undefined;
+    @ApiProperty({ example: 27, type: Number })
+    readonly alter: number | undefined;
 }
 /* eslint-enable @typescript-eslint/no-magic-numbers */
