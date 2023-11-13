@@ -66,7 +66,7 @@ export type KuenstlerModel = Omit<Kuenstler, 'album' | 'id'>;
 /** Album-Objekt mit HATEOAS-Links */
 export type AlbumModel = Omit<
     Album,
-    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler'
+    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler' | 'version'
 > & {
     kuenstler: KuenstlerModel;
     // eslint-disable-next-line @typescript-eslint/naming-convention
