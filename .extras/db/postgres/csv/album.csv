@@ -1,5 +1,5 @@
-id;genre;name;titelbild
-1;POP;Alpha;Alphacover.png
-10;RAP;Beta;Betacover.jpeg
-20;RAP;Gamma;Gammacover.jpeg
-30;ROCK;Delta;Deltacover.png
+id;version;genre;name;titelbild;erzeugt;aktualisiert
+1;0;POP;Alpha;Alphacover.png;2023-11-01 00:00:00;2023-11-01 00:00:00
+10;0;RAP;Beta;Betacover.jpeg;2023-11-01 00:00:00;2023-11-01 00:00:00
+20;0;RAP;Gamma;Gammacover.jpeg;2023-11-01 00:00:00;2023-11-01 00:00:00
+30;0;ROCK;Delta;Deltacover.png;2023-11-01 00:00:00;2023-11-01 00:00:00

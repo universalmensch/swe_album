@@ -6,9 +6,12 @@ CREATE TYPE genre AS ENUM ('POP', 'RAP', 'ROCK');
 
 CREATE TABLE IF NOT EXISTS album (
     id            integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE albumspace,
+    version       integer NOT NULL DEFAULT 0,
     genre         genre,
     name          varchar(40),
-    titelbild     varchar(64)
+    titelbild     varchar(64),
+    erzeugt       timestamp NOT NULL DEFAULT NOW(),
+    aktualisiert  timestamp NOT NULL DEFAULT NOW()
 ) TABLESPACE albumspace;
 
 CREATE TABLE IF NOT EXISTS kuenstler (
