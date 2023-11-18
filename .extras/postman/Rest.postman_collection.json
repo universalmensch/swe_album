@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "75f275bb-0baa-4ffd-bbeb-0e97de43a159",
+		"_postman_id": "517a8b73-cc32-4e7a-a7a7-6e20e3568b3f",
 		"name": "Rest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30029937"
+		"_exporter_id": "30646332"
 	},
 	"item": [
 		{
@@ -278,10 +278,8 @@
 							],
 							"variable": [
 								{
-									"id": 0,
 									"key": "id",
-									"value": "1",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -424,10 +422,8 @@
 							],
 							"variable": [
 								{
-									"id": 0,
 									"key": "id",
-									"value": "1",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -567,10 +563,8 @@
 							],
 							"variable": [
 								{
-									"id": 0,
 									"key": "id",
-									"value": "999999",
-									"type": "string"
+									"value": "999999"
 								}
 							]
 						}
@@ -899,7 +893,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"genre\": \"POP\",\r\n  \"name\": \"Light\",\r\n  \"titelbild\": \"Sunset.png\",\r\n  \"kuenstler\": {\r\n   \"name\": \"Binder\",\r\n   \"vorname\": \"Raffael\",\r\n   \"alter\": 20\r\n  },\r\n  \"lieder\": [\r\n   {\r\n    \"name\": \"Leuchten\",\r\n    \"dauer\": 187\r\n   },\r\n   {\r\n    \"name\": \"Strahlend\",\r\n    \"dauer\": 167\r\n   }\r\n  ]\r\n}",
+							"raw": "{\r\n  \"genre\": \"POP\",\r\n  \"name\": \"Light\",\r\n  \"titelbild\": \"Sunset.png\",\r\n  \"kuenstler\": {\r\n   \"name\": \"Binder\",\r\n   \"vorname\": \"Raffael\",\r\n   \"alter\": 20\r\n  },\r\n  \"lieder\": [\r\n   {\r\n    \"name\": \"Leuchten\",\r\n    \"dauerInSekunden\": 187\r\n   },\r\n   {\r\n    \"name\": \"Strahlend\",\r\n    \"dauerInSekunden\": 167\r\n   }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -917,24 +911,30 @@
 				}
 			],
 			"description": "Über die REST-Schnittstelle neue Alben anlegen",
-			"auth": {
-				"type": "inherit"
-			},
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
+						"type": "text/javascript",
 						"exec": [
-							"pm.sendRequest({\r",
-							"    url: 'https://localhost:3000/auth/login',\r",
-							"    method: 'POST',\r",
-							"    header: {\r",
-							"        'Content-Type': 'application/x-www-form-urlencoded'\r",
-							"    },\r",
-							"    body: 'username=admin&password=p',\r",
+							"pm.sendRequest({",
+							"    url: 'https://localhost:3000/auth/login',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/x-www-form-urlencoded'",
+							"    },",
+							"    body: 'username=admin&password=p',",
 							"}, (err, res) => pm.collectionVariables.set('TOKEN', res.json().token));"
-						],
-						"type": "text/javascript"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
 					}
 				}
 			]
@@ -1089,10 +1089,8 @@
 							],
 							"variable": [
 								{
-									"id": 0,
 									"key": "id",
-									"value": "20",
-									"type": "string"
+									"value": "20"
 								}
 							]
 						}
@@ -1238,10 +1236,8 @@
 							],
 							"variable": [
 								{
-									"id": 0,
 									"key": "id",
-									"value": "40",
-									"type": "string"
+									"value": "40"
 								}
 							]
 						}
@@ -1270,6 +1266,36 @@
 					}
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
