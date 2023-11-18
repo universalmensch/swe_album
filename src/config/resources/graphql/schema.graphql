@@ -25,7 +25,7 @@ type Kuenstler {
 "Daten zu einem Lied eines Albums"
 type Lied {
   name: String!
-  dauer: Int
+  dauerInSekunden: Int
 }
 
 "Datenschema zu einem Album, das gelesen wird"

@@ -27,6 +27,6 @@ export class Lied {
         JSON.stringify({
             id: this.id,
             name: this.name,
-            dauer: String(this.dauerInSekunden),
+            dauerInSekunden: String(this.dauerInSekunden),
         });
 }
