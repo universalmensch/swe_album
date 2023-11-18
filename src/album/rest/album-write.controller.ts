@@ -50,7 +50,7 @@ const MSG_FORBIDDEN = 'Kein Token mit ausreichender Berechtigung vorhanden';
  * Die Controller-Klasse für die Verwaltung von Bücher.
  */
 @Controller(paths.rest)
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard) // liegt an RolesGuard
 @UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Album REST-API')
 @ApiBearerAuth()
@@ -76,6 +76,7 @@ export class AlbumWriteController {
     @ApiCreatedResponse({ description: 'Erfolgreich neu angelegt' })
     @ApiBadRequestResponse({ description: 'Fehlerhafte Albumdaten' })
     @ApiForbiddenResponse({ description: MSG_FORBIDDEN })
+    @UseGuards(RolesGuard)
     async post(
         @Body() albumDTO: AlbumDTO,
         @Req() req: Request,
