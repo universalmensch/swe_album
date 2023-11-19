@@ -160,7 +160,7 @@
 					"response": []
 				},
 				{
-					"name": "Suche name von Alben mit dem Kuenstler Konstantin Kraus",
+					"name": "Suche name, titelbild von allen Alben mit dem Genre RAP",
 					"event": [
 						{
 							"listen": "test",
@@ -192,8 +192,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query ($kuenstler: String = \"Kraus\") {\r\n  alben(kuenstler: $kuenstler) {\r\n    name\r\n  }\r\n}",
-								"variables": "{\r\n      \"kuenstler\": \"Kraus\"\r\n}"
+								"query": "query ($genre: Genre = RAP) {\r\n  alben(genre: $genre) {\r\n    name\r\n    titelbild\r\n  }\r\n}",
+								"variables": "{\r\n      \"genre\": \"RAP\"\r\n}"
 							}
 						},
 						"url": {
