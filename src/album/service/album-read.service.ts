@@ -106,11 +106,7 @@ export class AlbumReadService {
     #checkKeys(keys: string[]) {
         let validKeys = true;
         keys.forEach((key) => {
-            if (
-                !this.#albumProps.includes(key) &&
-                key !== 'javascript' &&
-                key !== 'typescript'
-            ) {
+            if (!this.#albumProps.includes(key)) {
                 this.#logger.debug(
                     '#find: ungueltiges Suchkriterium "%s"',
                     key,

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "517a8b73-cc32-4e7a-a7a7-6e20e3568b3f",
+		"_postman_id": "74483b5c-619a-43f6-813e-c9c4631a58da",
 		"name": "Rest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30646332"
+		"_exporter_id": "30029937"
 	},
 	"item": [
 		{
@@ -591,11 +591,11 @@
 									"    const contentType = response.headers.get('Content-Type');\r",
 									"    pm.expect(contentType).to.match(/^application\\/hal\\+json(; charset=utf-8)?/u);\r",
 									"});\r",
-									"pm.test('Body: mind. 1 Buch und Self-Link vorhanden', () => {\r",
+									"pm.test('Body: mind. 1 Album und Self-Link vorhanden', () => {\r",
 									"    const body = pm.response.json();\r",
-									"    const { buecher } = body._embedded;\r",
-									"    pm.expect(buecher).to.be.an('array').that.is.not.empty;\r",
-									"    buecher.map(buch => buch._links.self.href)\r",
+									"    const { alben } = body._embedded;\r",
+									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
+									"    alben.map(album => album._links.self.href)\r",
 									"        .forEach(href => pm.expect(href).to.be.a('string').that.matches(/\\/rest\\/[1-9]\\d*$/u));\r",
 									"});"
 								],

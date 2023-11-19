@@ -68,15 +68,8 @@ export class QueryBuilder {
      * @param suchkriterien JSON-Objekt mit Suchkriterien
      * @returns QueryBuilder
      */
-    // eslint-disable-next-line max-lines-per-function
-    build({ kuenstler, javascript, typescript, ...props }: Suchkriterien) {
-        this.#logger.debug(
-            'build: kuenstler=%s, props=%o',
-            kuenstler,
-            javascript,
-            typescript,
-            props,
-        );
+    build({ kuenstler, ...props }: Suchkriterien) {
+        this.#logger.debug('build: kuenstler=%s, props=%o', kuenstler, props);
 
         let queryBuilder = this.#repo.createQueryBuilder(this.#albumAlias);
         queryBuilder.innerJoinAndSelect(
@@ -96,28 +89,6 @@ export class QueryBuilder {
                 `${this.#kuenstlerAlias}.kuenstler ${ilike} :kuenstler`,
                 { kuenstler: `%${kuenstler}%` },
             );
-            useWhere = false;
-        }
-
-        if (javascript === 'true') {
-            queryBuilder = useWhere
-                ? queryBuilder.where(
-                      `${this.#albumAlias}.lieder like '%JAVASCRIPT%'`,
-                  )
-                : queryBuilder.andWhere(
-                      `${this.#albumAlias}.lieder like '%JAVASCRIPT%'`,
-                  );
-            useWhere = false;
-        }
-
-        if (typescript === 'true') {
-            queryBuilder = useWhere
-                ? queryBuilder.where(
-                      `${this.#albumAlias}.lieder like '%TYPESCRIPT%'`,
-                  )
-                : queryBuilder.andWhere(
-                      `${this.#albumAlias}.lieder like '%TYPESCRIPT%'`,
-                  );
             useWhere = false;
         }
 
