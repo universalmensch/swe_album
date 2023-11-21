@@ -1,10 +1,10 @@
 // Preview durch <Strg><Shift>v
 
 = Projekthandbuch
-Melvin Grzalik <grme1011@h-ka.de> https://www.h-ka.de
-Niklas Justus <juni1016-ka.de> https://www.h-ka.de
-Mike Tran <trmi1016@h-ka.de> https://www.h-ka.de
-Konstantin Kraus <krko1012@h-ka.de> https://www.h-ka.de
+Melvin Grzalik <grme1011@h-ka.de>
+Niklas Justus <juni1016-ka.de>
+Mike Tran <trmi1016@h-ka.de>
+Konstantin Kraus <krko1012@h-ka.de>
 :doctype: book
 :toc: left
 :sectanchors:
