@@ -24,8 +24,6 @@ export interface Suchkriterien {
     readonly name?: string;
     readonly titelbild?: string;
     readonly kuenstler?: string;
-    readonly javascript?: string;
-    readonly typescript?: string;
 }
 
 /**
