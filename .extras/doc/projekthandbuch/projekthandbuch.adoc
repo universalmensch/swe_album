@@ -1,7 +1,10 @@
 // Preview durch <Strg><Shift>v
 
 = Projekthandbuch
-Jürgen Zimmermann <Juergen.Zimmermann@h-ka.de>
+Melvin Grzalik <grme1011@h-ka.de> https://www.h-ka.de
+Niklas Justus <juni1016-ka.de> https://www.h-ka.de
+Mike Tran <trmi1016@h-ka.de> https://www.h-ka.de
+Konstantin Kraus <krko1012@h-ka.de> https://www.h-ka.de
 :doctype: book
 :toc: left
 :sectanchors:
@@ -16,11 +19,6 @@ Jürgen Zimmermann <Juergen.Zimmermann@h-ka.de>
 // http://de.plantuml.com/classes.html
 // http://de.plantuml.com/component.html
 // https://github.com/odrotbohm/asciidoctor-plantuml
-
-IMPORTANT: Copyright (C) 2020 - present Jürgen Zimmermann, Hochschule Karlsruhe. +
-           Free use of this software is granted under the terms of the
-           GNU General Public License (GPL) v3. +
-           For the full text of the license, see the http://www.gnu.org/licenses/gpl-3.0.html[license] file.
 
 == Der Applikationsserver
 
@@ -45,20 +43,13 @@ include::komponenten.plantuml[]
 
 === Die REST-Schnittstelle
 
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet
-ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit
-amet ligula.
+Realisierung der Rest Endpunkte, für Lese- und Schreibzugriffe
 
-."BuchGetController" für Lesezugriffe an der REST-Schnittstelle
-[plantuml,BuchGetController,svg]
+."AlbumGetController" für Lesezugriffe an der REST-Schnittstelle
+[plantuml,AlbumGetController,svg]
 ----
-include::BuchGetController.plantuml[]
+include::AlbumGetController.plantuml[]
 ----
-
-Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-sollicitudin molestie malesuada.
 
 ."Sequenzdiagramm" mit den Methodenaufrufen
 [plantuml,sequenzdiagramm,svg]
@@ -66,89 +57,56 @@ sollicitudin molestie malesuada.
 include::sequenzdiagramm.plantuml[]
 ----
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tempor invidunt ut.
-
-."BuchWriteController" für Schreibzugriffe an der REST-Schnittstelle
-[plantuml,BuchGetController,svg]
+."AlbumWriteController" für Schreibzugriffe an der REST-Schnittstelle
+[plantuml,AlbumGetController,svg]
 ----
-include::BuchWriteController.plantuml[]
+include::AlbumWriteController.plantuml[]
 ----
 
 === Die GraphQL-Schnittstelle
 
-Donec sollicitudin molestie malesuada. Donec rutrum congue leo eget malesuada.
+Realisierung des GraphQL Endpunktes POST für Lese- und Schreibzugriffe.
 
-.BuchQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
-[plantuml,BuchQueryResolver,svg]
+.AlbumQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
+[plantuml,AlbumQueryResolver,svg]
 ----
-include::BuchQueryResolver.plantuml[]
+include::AlbumQueryResolver.plantuml[]
 ----
 
-Donec sollicitudin molestie malesuada. Praesent sapien massa, convallis a
-pellentesque nec, egestas non nisi.
-
-.BuchMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
-[plantuml,BuchMutationResolver,svg]
+.AlbumMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
+[plantuml,AlbumMutationResolver,svg]
 ----
-include::BuchMutationResolver.plantuml[]
+include::AlbumMutationResolver.plantuml[]
 ----
 
 === Die Geschäftslogik
 
-Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada.
+Verarbeitung der einzelnen Geschäftsprozesse.
 
-."BuchReadService" von der Geschäftslogik
-[plantuml,BuchReadService,svg]
+."AlbumReadService" von der Geschäftslogik
+[plantuml,AlbumReadService,svg]
 ----
-include::BuchReadService.plantuml[]
+include::AlbumReadService.plantuml[]
 ----
 
-Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget
-malesuada.
-
-."BuchWriteService" von der Geschäftslogik
-[plantuml,BuchWriteService,svg]
+."AlbumWriteService" von der Geschäftslogik
+[plantuml,AlbumWriteService,svg]
 ----
-include::BuchWriteService.plantuml[]
+include::AlbumWriteService.plantuml[]
 ----
 
 === Klasse für Entities
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat,
-accumsan id imperdiet et, porttitor at sem.
-
 .Entity
-[plantuml,Buch,svg]
+[plantuml,Album,svg]
 ----
-include::Buch.plantuml[]
+include::Album.plantuml[]
 ----
 
 === ER-Diagramm
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 .ER-Diagramm
 [plantuml,ER-Diagramm,svg]
 ----
 include::ER-Diagramm.plantuml[]
 ----
-
-== Programmierrichtlinien für TypeScript und JavaScript
-
-Für die Programmierung mit *TypeScript* und *JavaScript* sind folgende
-Styleguides empfehlenswert:
-
-[horizontal]
-_E-Book zu TypeScript_:: https://github.com/gibbok/typescript-book
-_Google_:: https://google.github.io/styleguide/tsguide.html
-_React bei AirbnB_:: https://github.com/airbnb/javascript/tree/master/react
-_Angular_:: https://angular.io/docs/ts/latest/guide/style-guide.html
-_Microsoft_:: https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines
-
-Von IBM und Red Hat gibt es bei GitHub _Node.js Reference Architecture_
-https://github.com/nodeshift/nodejs-reference-architecture, wo alle möglichen
-Aspekte bei der Softwareentwicklung mit Node berücksichtigt sind und
-entsprechende Empfehlungen bzw. Best Practices beschrieben sind.
-Diese Dokumentation muss man einfach gelesen haben. Ebenfalls empfehlenswert
-ist https://github.com/goldbergyoni/nodebestpractices.
