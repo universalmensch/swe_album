@@ -1,0 +1,52 @@
+' Preview durch <Alt>d
+
+@startuml Anwendungskern
+
+interface Promise<T>
+
+package @nestjs/common {
+  class "@Injectable" as Injectable
+  hide Injectable circle
+}
+
+package typeorm {
+  class Repository<T>
+}
+
+package @nestjs/typeorm {
+  class "@InjectRepository" as InjectRepository
+  hide InjectRepository circle
+}
+
+package album {
+  package entity {
+    class Album
+  }
+
+  package service #DDDDDD {
+    class QueryBuilder
+
+    class AlbumReadService << control >> <<@Injectable()>> {
+      + async findById(id: number): Promise<Album | undefined>
+      + async find(suchkriterien?: Record<string, any>): Promise<Album[]>
+    }
+
+    AlbumReadService o--> "1" QueryBuilder: queryBuilder
+    AlbumReadService o--> "1" Repository: @InjectRepository repo
+
+    AlbumReadService .up.> Injectable
+    AlbumReadService .up.> InjectRepository
+
+    AlbumReadService .up.> Promise
+    AlbumReadService ..> Album
+
+    QueryBuilder .[hidden].> Repository
+    QueryBuilder .[hidden].> Album
+  }
+}
+
+hide empty members
+
+footer (c) Gruppe 4
+
+@enduml

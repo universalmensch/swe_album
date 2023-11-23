@@ -8,42 +8,36 @@ hide circle
 ' evtl. Prbleme mit Kraehenfuessen vermeiden
 skinparam linetype ortho
 
-entity "Buch" {
+entity "Album" {
   * id: integer <<generated>>
   --
   * version: integer
-  * isbn: text
-  * rating: number
-  * art: text
-  * preis: number
-  * rabatt: number
-  * lieferbar: boolean
-    datum: date
-    homepage: text
-  * **titel_id**: integer <<FK>>
-    schlagwoerter: text
+  * genre: text
+  * name: text
+  * titelbild: text
+  * **kuenstler_id**: integer <<FK>>
   * erzeugt: timestamp
   * aktualisiert: timestamp
 }
 
-entity "Titel" {
+entity "Kuenstler" {
   * id: integer <<generated>>
   --
-  * titel: text
-    untertitel: text
+  * name: text
+    vorname: text
 }
 
-entity "Abbildung" {
+entity "Lied" {
   * id: integer <<generated>>
   --
-  * beschriftung: text
-    contentType: text
-  * **buch_id**: integer <<FK>>
+  * name: text
+    dauerInSekunden: integer
+  * **album_id**: integer <<FK>>
 }
 
-Buch ||..|| Titel
-Buch ||..o{ Abbildung
+Album ||..|| Kuenstler
+Album ||..o{ Lied
 
-footer (c) Jürgen Zimmermann
+footer (c) Gruppe 4
 
 @enduml
