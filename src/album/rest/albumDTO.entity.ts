@@ -15,7 +15,7 @@ export class AlbumDtoOhneRef {
     @ApiProperty({ example: 'name', type: String })
     readonly name!: string;
 
-    @Matches('w.*.(jpg|png)')
+    @Matches('\\w.*.(jpg|png)')
     @ApiProperty({ example: 'Beispiel.png', type: String })
     readonly titelbild!: string;
 }
