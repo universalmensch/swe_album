@@ -1,0 +1,61 @@
+' Preview durch <Alt>d
+
+@startuml Entity
+
+package typeorm {
+  class "@Entity" as Entity
+  hide Entity circle
+  class "@Column" as Column
+  hide Column circle
+  class "@PrimaryColumn" as PrimaryColumn
+  hide PrimaryColumn circle
+  class "@OneToMany" as OneToMany
+  hide OneToMany circle
+  class "@JoinColumn" as JoinColumn
+  hide JoinColumn circle
+  class "@ManyToOne" as ManyToOne
+  hide ManyToOne circle
+  class "@CreateDateColumn" as CreateDateColumn
+  hide CreateDateColumn circle
+  class "@UpdateDateColumn" as UpdateDateColumn
+  hide UpdateDateColumn circle
+}
+
+package album.entity {
+  class "type Genre = 'POP' | 'RAP' | 'ROCK'" as Genre
+  hide Genre circle
+
+  class Album <<entity>> <<@Entity>> {
+    @Column() @PrimaryColumn() readonly id: number
+    @Column() readonly version: number
+    @Column() readonly genre: Genre
+    @Column() readonly name: string
+    @Column() readonly titelbild: string
+    @CreateDateColumn() readonly erzeugt: Date
+    @UpdateDateColumn() readonly aktualisiert: Date
+  }
+
+  class Kuenstler <<entity>> <<@Entity>> {
+    @Column() @PrimaryColumn() readonly id: number
+    @Column() readonly name: string
+    @Column() readonly vorname: string
+  }
+
+  class Lied <<entity>> <<@Entity>> {
+    @Column() @PrimaryColumn() readonly id: number
+    @Column() readonly name: string
+    @Column() readonly dauerInSekunden: integer
+  }
+
+  Album *--> "1" Kuenstler : @OneToOne() \nkuenstler
+  Album *--> "*" Lied : @OneToMany() \nlieder
+
+  Album .right.> Entity
+  Album .right.> Genre
+}
+
+hide empty members
+
+footer (c) Gruppe 4
+
+@enduml

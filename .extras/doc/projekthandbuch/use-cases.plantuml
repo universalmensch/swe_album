@@ -6,17 +6,17 @@ actor Gast
 actor Admin
 actor Kunde
 
-rectangle buch {
-    Gast --> (Buch suchen)
-    Admin --> (Buch suchen)
-    Admin --> (Buch anlegen)
-    Admin --> (Buch ändern)
-    Admin --> (Buch löschen)
-    Kunde --> (Buch suchen)
-    Kunde --> (Buch anlegen)
-    Kunde --> (Buch ändern)
+rectangle album {
+    Gast --> (Album suchen)
+    Admin --> (Album suchen)
+    Admin --> (Album anlegen)
+    Admin --> (Album ändern)
+    Admin --> (Album löschen)
+    Kunde --> (Album suchen)
+    Kunde --> (Album anlegen)
+    Kunde --> (Album ändern)
 }
 
-footer (c) Jürgen Zimmermann
+footer (c) Gruppe 4 
 
 @enduml
