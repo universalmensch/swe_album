@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS album (
     version       integer NOT NULL DEFAULT 0,
     genre         genre,
     name          varchar(40),
-    titelbild     varchar(64),
+    titelbild     varchar(40),
     erzeugt       timestamp NOT NULL DEFAULT NOW(),
     aktualisiert  timestamp NOT NULL DEFAULT NOW()
 ) TABLESPACE albumspace;
