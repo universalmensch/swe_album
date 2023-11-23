@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "74483b5c-619a-43f6-813e-c9c4631a58da",
+		"_postman_id": "9853d84e-7bb8-412a-90b9-d99b253b9c3e",
 		"name": "Rest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30029937"
+		"_exporter_id": "30646332"
 	},
 	"item": [
 		{
@@ -1000,6 +1000,36 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -1052,6 +1082,16 @@
 				}
 			],
 			"description": "Über die REST-Schnittstelle neue Alben anlegen",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1102,113 +1142,16 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
-								"name": "cache-control",
-								"sortOrder": 2,
-								"infoTitle": "We recommend using this header",
-								"info": "Postman added \"Cache-Control: no-cache\" as a precautionary measure to prevent the server from returning stale response when one makes repeated requests.\n\nYou can remove this header in the app settings or enter a new one with a different value.",
-								"allowedToToggle": false,
-								"disableEdit": true,
-								"previewSettingsLink": "Go to settings",
-								"key": "Cache-Control",
-								"value": "no-cache",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "postman-token",
-								"sortOrder": 3,
-								"infoTitle": "We recommend using this header",
-								"info": "The Postman-Token header appends a random UUID to every outgoing request. Postman adds this header for API developers to better debug requests sent and to ensure separate requests appear distinct to the receiving server.\n\nYou can remove this header in the app settings.",
-								"allowedToToggle": false,
-								"disableEdit": true,
-								"previewSettingsLink": "Go to settings",
-								"key": "Postman-Token",
-								"value": "<calculated when request is sent>",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "content-length",
-								"sortOrder": 5,
-								"infoTitle": "This header was automatically added",
-								"info": "The Content-Length header was added to indicate to the server the size of the request body that is added to this request. Server uses this value to parse the request body accurately.\n\nYou can remove the header or enter a new one with a different value.",
-								"allowedToToggle": true,
-								"disableEdit": true,
-								"previewSettingsLink": "Go to body",
-								"key": "Content-Length",
-								"value": "0",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "host",
-								"sortOrder": 6,
-								"infoTitle": "We recommend using this header",
-								"info": "The Host header is added to identify the domain name for which a request is being sent to the server. This header is implicitly sent by every HTTP client.\n\nYou can remove the header or enter a new one with a different value. It is most likely that without this header, your request will return an HTTP 400 error.",
-								"allowedToToggle": true,
-								"disableEdit": true,
-								"key": "Host",
-								"value": "<calculated when request is sent>",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "user-agent",
-								"sortOrder": 7,
-								"infoTitle": "We recommend using this header",
-								"info": "The User-Agent header is added to help the server identify Postman as the HTTP requesting application or client.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
-								"allowedToToggle": true,
-								"disableEdit": true,
-								"key": "User-Agent",
-								"value": "PostmanRuntime/7.32.1",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "accept",
-								"sortOrder": 8,
-								"infoTitle": "We recommend using this header",
-								"info": "The \"Accept: */*\" header is added to tell the server that Postman can understand and process all forms of response content types.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
-								"allowedToToggle": true,
-								"disableEdit": true,
-								"key": "Accept",
-								"value": "*/*",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "accept-encoding",
-								"sortOrder": 9,
-								"infoTitle": "We recommend using this header",
-								"info": "The Accept-Encoding header is added to indicate to the server that Postman HTTP client supports a defined list of content-encoding or compression algorithms as response.\n\nYou can remove the header or enter a new one with a different value. Doing that may not accurately render the response within the app.",
-								"allowedToToggle": true,
-								"disableEdit": true,
-								"key": "Accept-Encoding",
-								"value": "gzip, deflate, br",
-								"system": true,
-								"type": "text"
-							},
-							{
-								"name": "connection",
-								"sortOrder": 10,
-								"infoTitle": "We recommend using this header",
-								"info": "Postman added the Connection header to indicate the server to keep the underlying network connection open once the current response is received. This allows Postman to reuse the same connection for faster response times in subsequent requests to the same server.\n\nYou can remove this header or enter a new one with a different value, such as `Connection: Close` to control this behaviour.",
-								"allowedToToggle": true,
-								"disableEdit": true,
-								"key": "Connection",
-								"value": "keep-alive",
-								"system": true,
-								"type": "text"
-							},
-							{
 								"key": "If-Match",
 								"value": "\"0\"",
-								"type": "text",
-								"id": 0
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1238,13 +1181,43 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
 			"name": "Löschen",
 			"item": [
 				{
-					"name": "Album 40 löschen",
+					"name": "Album 1 löschen",
 					"event": [
 						{
 							"listen": "test",
@@ -1378,7 +1351,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "40"
+									"value": "1"
 								}
 							]
 						}
@@ -1387,38 +1360,44 @@
 				}
 			],
 			"auth": {
-				"type": "inherit"
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
 			},
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
+						"type": "text/javascript",
 						"exec": [
-							"pm.sendRequest({\r",
-							"    url: 'https://localhost:3000/auth/login',\r",
-							"    method: 'POST',\r",
-							"    header: {\r",
-							"        'Content-Type': 'application/x-www-form-urlencoded',\r",
-							"    },\r",
-							"    body: 'username=admin&password=p',\r",
+							"pm.sendRequest({",
+							"    url: 'https://localhost:3000/auth/login',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/x-www-form-urlencoded',",
+							"    },",
+							"    body: 'username=admin&password=p',",
 							"}, (err, res) => pm.collectionVariables.set('TOKEN', res.json().token));"
-						],
-						"type": "text/javascript"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
 					}
 				}
 			]
 		}
 	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{TOKEN}}",
-				"type": "string"
-			}
-		]
-	},
 	"event": [
 		{
 			"listen": "prerequest",
