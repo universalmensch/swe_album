@@ -50,7 +50,7 @@ const MSG_FORBIDDEN = 'Kein Token mit ausreichender Berechtigung vorhanden';
  * Die Controller-Klasse für die Verwaltung von Bücher.
  */
 @Controller(paths.rest)
-@UseGuards(JwtAuthGuard, RolesGuard) // liegt an RolesGuard, muss man wieder rein machen
+@UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Album REST-API')
 @ApiBearerAuth()
@@ -71,7 +71,7 @@ export class AlbumWriteController {
      * @returns Leeres Promise-Objekt.
      */
     @Post()
-    @RolesAllowed('admin', 'fachabteilung')
+    @RolesAllowed('admin', 'musikredakteur')
     @ApiOperation({ summary: 'Ein neues Album anlegen' })
     @ApiCreatedResponse({ description: 'Erfolgreich neu angelegt' })
     @ApiBadRequestResponse({ description: 'Fehlerhafte Albumdaten' })
@@ -102,7 +102,7 @@ export class AlbumWriteController {
      */
     // eslint-disable-next-line max-params
     @Put(':id')
-    @RolesAllowed('admin', 'fachabteilung')
+    @RolesAllowed('admin', 'musikredakteur')
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiOperation({
         summary: 'Ein vorhandenes Album aktualisieren',

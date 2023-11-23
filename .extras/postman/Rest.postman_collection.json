@@ -874,7 +874,7 @@
 									"    const { token, expiresIn, roles } = body;\r",
 									"    pm.expect(token).to.be.a('string').that.matches(/.+\\..+\\..+/u);\r",
 									"    pm.expect(expiresIn).to.be.equal('1h');\r",
-									"    pm.expect(roles).to.be.an('array').that.has.a.lengthOf(2).to.include.members(['admin', 'fachabteilung']);\r",
+									"    pm.expect(roles).to.be.an('array').that.has.a.lengthOf(2).to.include.members(['admin', 'musikredakteur']);\r",
 									"});"
 								],
 								"type": "text/javascript"

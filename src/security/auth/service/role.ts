@@ -21,4 +21,4 @@
  * @packageDocumentation
  */
 
-export type Role = 'admin' | 'kunde' | 'fachabteilung';
+export type Role = 'admin' | 'album' | 'musikredakteur';

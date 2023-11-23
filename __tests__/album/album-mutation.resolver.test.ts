@@ -154,7 +154,7 @@ describe('GraphQL Mutations', () => {
         expect(messages).toEqual(expect.arrayContaining(expectedMsg));
     });
 
-    test('Neues Album nur als "admin"/"fachabteilung"', async () => {
+    test('Neues Album nur als "admin"/"musikredakteur"', async () => {
         const token = await loginGraphQL(client, 'adriana.alpha', 'p');
         const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
         const body: GraphQLQuery = {
