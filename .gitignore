@@ -8,7 +8,7 @@
 
 # Generierte Dateien
 build
-.extras/doc/entwicklerhandbuch/html/*
+.extras/doc/projekthandbuch/html/*
 .extras/doc/folien/*.html
 .extras/doc/api/*
 .extras/doc/dependency-check/*
@@ -37,7 +37,7 @@ Thumbs.db
 coverage
 /.nyc_output
 /.clinic
-/__tests__/album/__snapshots__
+/__tests__/buch/__snapshots__
 
 # Snyk
 .snyk
