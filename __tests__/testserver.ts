@@ -103,7 +103,11 @@ export const startServer = async () => {
         }),
     );
 
-    await server.listen(port);
+    //await server.listen(port);
+    const nPort = 4000;
+
+    // Verwende den neuen Port beim Starten des Servers
+    await server.listen(nPort);
     return server;
 };
 
