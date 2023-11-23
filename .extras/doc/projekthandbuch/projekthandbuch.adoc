@@ -24,16 +24,11 @@ Konstantin Kraus <krko1012@h-ka.de>
 
 === Der Applikationsserver im Überblick
 
-Sed porttitor lectus nibh. Nulla porttitor accumsan tincidunt.
-
 .Use Cases
 [plantuml,use-cases,svg]
 ----
 include::use-cases.plantuml[]
 ----
-
-Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla porttitor
-accumsan tincidunt.
 
 .Komponentendiagramm
 [plantuml,komponenten,svg]
