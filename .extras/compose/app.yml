@@ -20,10 +20,10 @@ db:
   host: postgres
   #host: mysql
 
-  #username: buch
+  #username: album
   #password: p
   #passwordAdmin: p
-  #name: buch
+  #name: album
   populate: true
 
 # ==============================================================================
@@ -47,7 +47,7 @@ health:
 # 1d = 1 Tag, 1h = 1 Stunde, 1m = 1 Minute, 1s = 1 Sekunde
 #jwt:
 #  expiresIn: 1h
-#  issuer: https://hka.de/JuergenZimmermann
+#  issuer: https://hka.de/gruppe4
 
 # ==============================================================================
 # M a i l s e r v e r
