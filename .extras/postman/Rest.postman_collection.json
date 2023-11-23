@@ -2016,6 +2016,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"genre\": \"POP\",\r\n  \"name\": \"Light\",\r\n  \"titelbild\": \"Sunset.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{rest_url}}/:id",
 							"host": [
