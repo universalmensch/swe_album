@@ -4,14 +4,14 @@
 
 actor Gast
 
-boundary BuchGetController
-control BuchReadService
-database buch
+boundary AlbumGetController
+control AlbumReadService
+database album
 
-Gast -> BuchGetController : GET / getById()
-BuchGetController -> BuchReadService: findById()
-BuchReadService -> buch: [TypeORM]
+Gast -> AlbumGetController : GET / getById()
+AlbumGetController -> AlbumReadService: findById()
+AlbumReadService -> album: [TypeORM]
 
-footer (c) Jürgen Zimmermann
+footer (c) Gruppe 4
 
 @enduml

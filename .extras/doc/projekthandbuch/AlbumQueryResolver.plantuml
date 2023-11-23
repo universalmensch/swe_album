@@ -30,7 +30,7 @@ package album {
   }
 
   package graphql #DDDDDD {
-    class "type AlbumDTO = Omit<Album, 'abbildungen' | 'aktualisiert' | 'erzeugt'" as AlbumDTO
+    class "type AlbumDTO = Omit<Album, 'lieder' | 'aktualisiert' | 'erzeugt'" as AlbumDTO
     hide AlbumDTO circle
 
     interface IdInput {
@@ -39,7 +39,7 @@ package album {
 
     class AlbumQueryResolver << control >> << @Resolver() >> << @UseInterceptors() >> {
       + @Query() async album(@Args() id: IdInput): Promise<AlbumDTO>
-      + @Query() async alben(@Args() titel: string | undefined): Promise<AlbumDTO[]>
+      + @Query() async alben(@Args() kuenstler: string | undefined): Promise<AlbumDTO[]>
     }
 
     AlbumQueryResolver o-up-> "1" AlbumReadService : service

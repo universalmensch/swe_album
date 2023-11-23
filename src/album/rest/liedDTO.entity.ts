@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-
-import { IsInt, MaxLength } from 'class-validator';
+import { IsInt, Matches, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LiedDTO {
+    @Matches('^\\w.*')
     @MaxLength(32)
     @ApiProperty({ example: 'Die Beschriftung', type: String })
     readonly name!: string;

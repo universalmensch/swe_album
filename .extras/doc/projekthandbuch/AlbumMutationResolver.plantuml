@@ -40,7 +40,7 @@ package album #DDDDDD {
     class AlbumWriteService << control >>
   }
 
-  class "type AlbumDTO = Omit<Album, 'abbildungen' | 'aktualisiert' | 'erzeugt'" as AlbumDTO
+  class "type AlbumDTO = Omit<Album, 'lieder' | 'aktualisiert' | 'erzeugt'" as AlbumDTO
   hide AlbumDTO circle
 
     interface IdInput {

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-
-import { IsOptional, Matches, MaxLength } from 'class-validator';
+import { IsInt, Matches, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class KuenstlerDTO {
@@ -11,10 +10,10 @@ export class KuenstlerDTO {
 
     @Matches('^\\w.*')
     @MaxLength(40)
-    @ApiProperty({ example: 'Der Name', type: String })
+    @ApiProperty({ example: 'Der Vorname', type: String })
     readonly vorname!: string;
 
-    @IsOptional()
+    @IsInt()
     @ApiProperty({ example: 27, type: Number })
     readonly alter: number | undefined;
 }

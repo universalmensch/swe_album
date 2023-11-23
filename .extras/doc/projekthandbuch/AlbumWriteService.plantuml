@@ -1,0 +1,71 @@
+' Preview durch <Alt>d
+
+@startuml Anwendungskern
+
+interface Promise<T>
+
+package @nestjs/common {
+  class "@Injectable" as Injectable
+  hide Injectable circle
+}
+
+package typeorm {
+  class Repository<T>
+}
+
+package @nestjs/typeorm {
+  class "@InjectRepository" as InjectRepository
+  hide InjectRepository circle
+}
+
+package mail {
+  class MailService
+}
+
+package album {
+  package entity {
+    class Album
+  }
+
+  package service #DDDDDD {
+    class AlbumInvalid
+    class KuenstlerExists
+    class VersionInvalid
+    class VersionOutdated
+
+    class AlbumWriteService << control >> <<@Injectable()>> {
+      + async create(album: Album): Promise<string|AlbumInvalid|KuenstlerExists>
+      + async update(id: number, album: Album, version: string): Promise<number|AlbumInvalid|KuenstlerExists|VersionInvalid|VersionOutdated>
+      + async delete(id: number): Promise<boolean>
+    }
+
+    AlbumWriteService o--> "1" AlbumValidationService: validationService
+    AlbumWriteService o--> "1" AlbumReadService: readService
+    AlbumWriteService o--> "1" Repository: @InjectRepository repo
+    AlbumWriteService o--> "1" MailService: mailService
+
+    AlbumWriteService .up.> Injectable
+    AlbumWriteService .up.> InjectRepository
+
+    AlbumWriteService .up.> Promise
+    AlbumWriteService ..> Album
+    AlbumWriteService .up.> AlbumInvalid
+    AlbumWriteService .up.> KuenstlerExists
+    AlbumWriteService .up.> VersionInvalid
+    AlbumWriteService .up.> VersionOutdated
+
+    AlbumInvalid .up[hidden].> Album
+    Album .up[hidden].> Promise
+    Album .up[hidden].> Injectable
+    Album .up[hidden].> InjectRepository
+    KuenstlerExists .up[hidden].> Album
+    AlbumValidationService .[hidden].> Repository
+    AlbumValidationService .[hidden].> MailService
+  }
+}
+
+hide empty members
+
+footer (c) Gruppe 4
+
+@enduml
