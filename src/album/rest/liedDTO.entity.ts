@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import { IsInt, Matches, MaxLength } from 'class-validator';
+import { IsInt, Matches, MaxLength, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LiedDTO {
@@ -9,6 +9,7 @@ export class LiedDTO {
     readonly name!: string;
 
     @IsInt()
+    @Min(1)
     @ApiProperty({ example: 79, type: Number })
     readonly dauerInSekunden: number | undefined;
 }
