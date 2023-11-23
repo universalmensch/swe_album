@@ -11,6 +11,6 @@ export class LiedDTO {
     @IsInt()
     @Min(1)
     @ApiProperty({ example: 79, type: Number })
-    readonly dauerInSekunden: number | undefined;
+    readonly dauerInSekunden!: number;
 }
 /* eslint-enable @typescript-eslint/no-magic-numbers */
