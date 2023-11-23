@@ -2,7 +2,6 @@ import { Args, Query, Resolver } from '@nestjs/graphql';
 import { UseFilters, UseInterceptors } from '@nestjs/common';
 import { Album } from '../entity/album.entity.js';
 import { AlbumReadService } from '../service/album-read.service.js';
-import { type Genre } from '../entity/album.entity';
 import { HttpExceptionFilter } from './http-exception.filter.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { getLogger } from '../../logger/logger.js';
@@ -41,10 +40,11 @@ export class AlbumQueryResolver {
     }
 
     @Query('alben')
-    async find(@Args() album: { genre: Genre } | undefined) {
-        const genreStr = album?.genre;
-        this.#logger.debug('find: Suchkriterium genre=%s', genreStr);
-        const suchkriterium = genreStr === undefined ? {} : { genre: genreStr };
+    async find(@Args() kuenstler: { name: string } | undefined) {
+        const kuenstlerStr = kuenstler?.name;
+        this.#logger.debug('find: Suchkriterium kuenstler=%s', kuenstlerStr);
+        const suchkriterium =
+            kuenstlerStr === undefined ? {} : { name: kuenstlerStr };
 
         const alben = await this.#service.find(suchkriterium);
 

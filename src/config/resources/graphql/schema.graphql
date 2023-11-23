@@ -11,7 +11,7 @@ type Mutation {
 
 "Funktionen, um Albendaten zu lesen"
 type Query {
-  alben(genre: Genre): [Album!]
+  alben(name: String): [Album!]
   album(id: ID!): Album
 }
 
