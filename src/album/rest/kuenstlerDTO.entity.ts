@@ -3,12 +3,12 @@ import { IsInt, Matches, MaxLength, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class KuenstlerDTO {
-    @Matches('^\\w.*')
+    @Matches('^[a-zA-Z]+(?:\\s(?:von|zu))?\\s?[a-zA-Z]+')
     @MaxLength(40)
-    @ApiProperty({ example: 'Der Name', type: String })
+    @ApiProperty({ example: 'DerName', type: String })
     readonly name!: string;
 
-    @Matches('^\\w.*')
+    @Matches('^[a-zA-Z]+')
     @MaxLength(40)
     @ApiProperty({ example: 'Der Vorname', type: String })
     readonly vorname!: string;
