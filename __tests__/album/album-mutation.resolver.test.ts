@@ -217,7 +217,7 @@ describe('GraphQL Mutations', () => {
                             version: 0,
                             genre: "ROCK",
                             name: "Sun",
-                            titelbild: "Light.png",
+                            titelbild: "Light.png"
                         }
                     ) {
                         version
@@ -315,7 +315,7 @@ describe('GraphQL Mutations', () => {
                             version: 0,
                             genre: "ROCK",
                             name: "Jo",
-                            titelbild: "Jo.png",
+                            titelbild: "Jo.png"
                         }
                     ) {
                         version
