@@ -22,9 +22,9 @@ export interface GraphQLResponseBody {
 
 type AlbumDTO = Omit<Album, 'lieder' | 'aktualisiert' | 'erzeugt'>;
 
-const idVorhanden = '1';
+const idVorhanden = '30';
 
-const kuenstlerVorhanden = 'Konstantin';
+const kuenstlerVorhanden = 'Kraus';
 
 const kuenstlerNameVorhanden = 'i';
 
@@ -53,10 +53,12 @@ describe('GraphQL Queries', () => {
             query: `
                 {
                     album(id: "${idVorhanden}") {
-                        version
                         name
+                        genre
                         kuenstler {
                             name
+                            vorname
+                            alter
                         }
                     }
                 }
@@ -79,7 +81,8 @@ describe('GraphQL Queries', () => {
         const result: AlbumDTO = album;
 
         expect(result.kuenstler?.name).toMatch(/^\w/u);
-        expect(result.version).toBeGreaterThan(-1);
+        expect(result.kuenstler?.vorname).toMatch(/^\w/u);
+        expect(result.kuenstler?.alter).toBeGreaterThanOrEqual(0);
         expect(result.id).toBeUndefined();
     });
 
@@ -126,7 +129,7 @@ describe('GraphQL Queries', () => {
         const body: GraphQLRequest = {
             query: `
                 {
-                    alben(kuenstler: "${kuenstlerVorhanden}") {
+                    alben(name: "${kuenstlerVorhanden}") {
                         genre
                         kuenstler {
                             name
@@ -166,7 +169,7 @@ describe('GraphQL Queries', () => {
         const body: GraphQLRequest = {
             query: `
                 {
-                    alben(kuenstler: "${kuenstlerNameVorhanden}") {
+                    alben(name: "${kuenstlerNameVorhanden}") {
                         genre
                         kuenstler {
                             name
@@ -206,7 +209,7 @@ describe('GraphQL Queries', () => {
         const body: GraphQLRequest = {
             query: `
                 {
-                    alben(kuenstler: "${kuenstlerNameNichtVorhanden}") {
+                    alben(name: "${kuenstlerNameNichtVorhanden}") {
                         genre
                         kuenstler {
                             name
