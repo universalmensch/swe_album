@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`GET /rest/:id Album zu vorhandener ID 1`] = `"https://desktop-tdgithv:3000/rest/1"`;
