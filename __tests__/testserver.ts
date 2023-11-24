@@ -104,6 +104,8 @@ export const startServer = async () => {
     );
 
     await server.listen(port);
+  
+    return server;
 };
 
 export const shutdownServer = async () => {

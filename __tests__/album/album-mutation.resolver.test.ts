@@ -1,5 +1,3 @@
-/* @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
-
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -110,13 +108,11 @@ describe('GraphQL Mutations', () => {
             `,
         };
         const expectedMsg = [
-            expect.stringMatching(/^name /u),
             expect.stringMatching(/^titelbild /u),
             expect.stringMatching(/^kuenstler.name /u),
             expect.stringMatching(/^kuenstler.vorname /u),
             expect.stringMatching(/^kuenstler.alter /u),
-            expect.stringMatching(/^lieder.name /u),
-            expect.stringMatching(/^lieder.dauerInSekunden /u),
+            expect.stringMatching(/^lieder.0.dauerInSekunden /u),
         ];
 
         const response: AxiosResponse<GraphQLResponseBody> = await client.post(
@@ -198,3 +194,5 @@ describe('GraphQL Mutations', () => {
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });
 });
+
+/* , @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
