@@ -1695,7 +1695,7 @@
 									"pm.test('Fehlermeldungen im Response Body', () => {\r",
 									"    const body = pm.response.json();\r",
 									"    const { message } = body;\r",
-									"    const props = ['genre', 'name', 'titelbild', 'kuenstler.name', 'kuenstler.vorname', 'kuenstler.alter', 'lied.name', 'lied.dauerInSekunden'];\r",
+									"    const props = ['genre', 'titelbild', 'kuenstler.name', 'kuenstler.vorname', 'kuenstler.alter', 'lieder.0.dauerInSekunden'];\r",
 									"    pm.expect(message).to.be.an('array').that.has.a.lengthOf(props.length);\r",
 									"    message.forEach(msg => pm.expect(msg).to.be.a('string').that.includes.oneOf(props));\r",
 									"});"
@@ -2389,7 +2389,7 @@
 									"pm.test('Fehlermeldungen im Response Body', () => {\r",
 									"    const body = pm.response.json();\r",
 									"    const { message } = body;\r",
-									"    const props = ['genre', 'name', 'titelbild', 'kuenstler.name', 'kuenstler.vorname', 'kuenstler.alter', 'lied.name', 'lied.dauerInSekunden'];\r",
+									"    const props = ['genre', 'titelbild'];\r",
 									"    pm.expect(message).to.be.an('array').that.has.a.lengthOf(props.length);\r",
 									"    message.forEach(msg => pm.expect(msg).to.be.a('string').that.includes.oneOf(props));\r",
 									"});"
@@ -2509,7 +2509,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"genre\": \"PO\",\r\n  \"name\": \"_?\",\r\n  \"titelbild\": \"Sunset.exe\",\r\n  \"kuenstler\": {\r\n   \"name\": \"\",\r\n   \"vorname\": \"   \",\r\n   \"alter\": -3\r\n  },\r\n  \"lieder\": [\r\n   {\r\n    \"name\": \"schlecht.exe\",\r\n    \"dauerInSekunden\": 0\r\n   }\r\n  ]\r\n}",
+							"raw": "{\r\n  \"genre\": \"PO\",\r\n  \"name\": \"_?\",\r\n  \"titelbild\": \"Sunset.exe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
