@@ -52,10 +52,6 @@ describe('GraphQL Mutations', () => {
                             lieder: [{
                                 name: "Sky",
                                 dauerInSekunden: 300
-                            },
-                            {
-                                name: "Dark",
-                                dauerInSekunden: 259
                             }]
                         }
                     ) {
@@ -85,7 +81,6 @@ describe('GraphQL Mutations', () => {
 
     // eslint-disable-next-line max-lines-per-function
     test('Album mit ungueltigen Werten neu anlegen', async () => {
-        // given
         const token = await loginGraphQL(client);
         const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
         const body: GraphQLQuery = {
@@ -201,4 +196,5 @@ describe('GraphQL Mutations', () => {
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });
 });
+
 /* , @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */

@@ -95,12 +95,6 @@ export class AlbumQuery implements Suchkriterien {
     declare readonly titelbild: string;
 
     @ApiProperty({ required: false })
-    declare readonly javascript: string;
-
-    @ApiProperty({ required: false })
-    declare readonly typescript: string;
-
-    @ApiProperty({ required: false })
     declare readonly kuenstler: string;
 }
 
@@ -174,14 +168,14 @@ export class AlbumGetController {
             this.#logger.debug('getById(): kuenstler=%o', album.kuenstler);
         }
 
-        /**const versionDb = album.version;
+        const versionDb = album.version;
         if (version === `"${versionDb}"`) {
             this.#logger.debug('getById: NOT_MODIFIED');
             return res.sendStatus(HttpStatus.NOT_MODIFIED);
         }
         this.#logger.debug('getById: versionDb=%s', versionDb);
         res.header('ETag', `"${versionDb}"`);
-        */
+
         const albumModel = this.#toModel(album, req);
         this.#logger.debug('getById: albumModel=%o', albumModel);
         return res.contentType(APPLICATION_HAL_JSON).json(albumModel);
