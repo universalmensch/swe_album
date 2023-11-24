@@ -112,6 +112,7 @@ describe('GraphQL Mutations', () => {
             expect.stringMatching(/^kuenstler.name /u),
             expect.stringMatching(/^kuenstler.vorname /u),
             expect.stringMatching(/^kuenstler.alter /u),
+            expect.stringMatching(/^lieder.0.name /u),
             expect.stringMatching(/^lieder.0.dauerInSekunden /u),
         ];
 
