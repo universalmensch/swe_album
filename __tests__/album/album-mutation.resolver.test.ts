@@ -1,5 +1,3 @@
-/* @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
-
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -198,3 +196,5 @@ describe('GraphQL Mutations', () => {
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });
 });
+
+/* , @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
