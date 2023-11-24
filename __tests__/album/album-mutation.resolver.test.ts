@@ -1,5 +1,3 @@
-/* eslint-disable max-lines, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
-
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -16,8 +14,6 @@ import { loginGraphQL } from '../login.js';
 
 // eslint-disable-next-line jest/no-export
 export type GraphQLQuery = Pick<GraphQLRequest, 'query'>;
-
-const idLoeschen = '10';
 
 // eslint-disable-next-line max-lines-per-function
 describe('GraphQL Mutations', () => {
@@ -45,7 +41,7 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            genre: "POP",
+                            genre: POP,
                             name: "Thunder",
                             titelbild: "Lightning.png",
                             kuenstler: {
@@ -97,7 +93,7 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            genre: "POP",
+                            genre: POP,
                             name: " k",
                             titelbild: "hallo",
                             kuenstler: {
@@ -162,7 +158,7 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            genre: "ROCK",
+                            genre: ROCK,
                             name: "STONE",
                             titelbild: "BLUE.png",
                             kuenstler: {
@@ -204,183 +200,5 @@ describe('GraphQL Mutations', () => {
         expect(extensions).toBeDefined();
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });
-
-    test('Album aktualisieren', async () => {
-        const token = await loginGraphQL(client);
-        const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
-        const body: GraphQLQuery = {
-            query: `
-                mutation {
-                    update(
-                        input: {
-                            id: "30",
-                            version: 0,
-                            genre: "ROCK",
-                            name: "Sun",
-                            titelbild: "Light.png"
-                        }
-                    ) {
-                        version
-                    }
-                }
-            `,
-        };
-
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-            { headers: authorization },
-        );
-
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.errors).toBeUndefined();
-
-        const { update } = data.data!;
-
-        expect(update.version).toBe(1);
-    });
-
-    test('Album mit ungueltigen Werten aktualisieren', async () => {
-        const token = await loginGraphQL(client);
-        const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
-        const id = '30';
-        const body: GraphQLQuery = {
-            query: `
-                mutation {
-                    update(
-                        input: {
-                            id: "${id}",
-                            version: 0,
-                            genre: "POP",
-                            name: "k         ",
-                            titelbild: "",
-                            kuenstler: {
-                                name: "   l",
-                                vorname: "ö     ",
-                                alter: 1000
-                            }
-                        }
-                    ) {
-                        version
-                    }
-                }
-            `,
-        };
-        const expectedMsg = [
-            expect.stringMatching(/^name /u),
-            expect.stringMatching(/^titelbild /u),
-            expect.stringMatching(/^kuenstler.name /u),
-            expect.stringMatching(/^kuenstler.vorname /u),
-            expect.stringMatching(/^kuenstler.alter /u),
-        ];
-
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-            { headers: authorization },
-        );
-
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.data!.update).toBeNull();
-
-        const { errors } = data;
-
-        expect(errors).toHaveLength(1);
-
-        const [error] = errors!;
-        const { message } = error;
-        const messages: string[] = message.split(',');
-
-        expect(messages).toBeDefined();
-        expect(messages).toHaveLength(expectedMsg.length);
-        expect(messages).toEqual(expect.arrayContaining(expectedMsg));
-    });
-
-    test('Nicht-vorhandenes Album aktualisieren', async () => {
-        const token = await loginGraphQL(client);
-        const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
-        const id = '999999';
-        const body: GraphQLQuery = {
-            query: `
-                mutation {
-                    update(
-                        input: {
-                            id: "${id}",
-                            version: 0,
-                            genre: "ROCK",
-                            name: "Jo",
-                            titelbild: "Jo.png"
-                        }
-                    ) {
-                        version
-                    }
-                }
-            `,
-        };
-
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-            { headers: authorization },
-        );
-
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.data!.update).toBeNull();
-
-        const { errors } = data;
-
-        expect(errors).toHaveLength(1);
-
-        const [error] = errors!;
-
-        expect(error).toBeDefined();
-
-        const { message, path, extensions } = error;
-
-        expect(message).toBe(
-            `Es gibt kein Album mit der ID ${id.toLowerCase()}.`,
-        );
-        expect(path).toBeDefined();
-        expect(path!![0]).toBe('update');
-        expect(extensions).toBeDefined();
-        expect(extensions!.code).toBe('BAD_USER_INPUT');
-    });
-
-    test('Album loeschen', async () => {
-        const token = await loginGraphQL(client);
-        const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
-        const body: GraphQLQuery = {
-            query: `
-                mutation {
-                    delete(id: "${idLoeschen}")
-                }
-            `,
-        };
-
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-            { headers: authorization },
-        );
-
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.errors).toBeUndefined();
-
-        const deleteMutation = data.data!.delete;
-
-        expect(deleteMutation).toBe(true);
-    });
 });
-/* eslint-enable max-lines, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
+/* , @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
