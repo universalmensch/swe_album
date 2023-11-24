@@ -3,7 +3,7 @@ import { IsInt, Matches, MaxLength, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LiedDTO {
-    @Matches('^\\w*')
+    @Matches('^[a-zA-Z]+')
     @MaxLength(32)
     @ApiProperty({ example: 'Die Beschriftung', type: String })
     readonly name!: string;
