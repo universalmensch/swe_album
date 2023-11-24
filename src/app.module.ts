@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { AlbumGetController } from './album/rest/album-get.controller.js';
 import { AlbumModule } from './album/album.module.js';
+import { AlbumWriteController } from './album/rest/album-write.controller.js';
 import { type ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './security/auth/auth.module.js';
-//import { BuchWriteController } from './buch/rest/buch-write.controller.js';
 import { DevModule } from './config/dev/dev.module.js';
 import { GraphQLModule } from '@nestjs/graphql';
 import { HealthModule } from './health/health.module.js';
@@ -34,7 +34,7 @@ export class AppModule implements NestModule {
             .apply(RequestLoggerMiddleware)
             .forRoutes(
                 AlbumGetController,
-                //BuchWriteController,
+                AlbumWriteController,
                 'auth',
                 'graphql',
             );

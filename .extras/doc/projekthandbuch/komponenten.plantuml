@@ -10,12 +10,12 @@ actor GraphQLClient
 node "Nest" {
   [RequestLoggerMiddleware]
 
-  [BuchController]
-  [BuchResolver]
+  [AlbumController]
+  [AlbumResolver]
 
-  [BuchService]
+  [AlbumService]
 
-  [Repository<Buch>]
+  [Repository<Album>]
 
   [MailService]
 }
@@ -29,10 +29,10 @@ cloud {
     [nodemailer]
 }
 
-database "DB buch" {
-    [Tabelle buch]
-    [Tabelle titel]
-    [Tabelle abbildung]
+database "DB album" {
+    [Tabelle album]
+    [Tabelle kuenstler]
+    [Tabelle lied]
 }
 
 node {
@@ -42,22 +42,22 @@ node {
 RESTClient ~~> [RequestLoggerMiddleware]
 GraphQLClient ~~> [RequestLoggerMiddleware]
 
-[RequestLoggerMiddleware] ~~> [BuchController]
-[RequestLoggerMiddleware] ~~> [BuchResolver]
+[RequestLoggerMiddleware] ~~> [AlbumController]
+[RequestLoggerMiddleware] ~~> [AlbumResolver]
 
-[BuchController] ..> [BuchService]
-[BuchResolver] ..> [BuchService]
-[BuchService] ..> [Repository<Buch>]
+[AlbumController] ..> [AlbumService]
+[AlbumResolver] ..> [AlbumService]
+[AlbumService] ..> [Repository<Album>]
 
-[Repository<Buch>] ~~> [TypeORM]
-[TypeORM] ~~> [Tabelle buch]
-[TypeORM] ~~> [Tabelle titel]
-[TypeORM] ~~> [Tabelle abbildung]
+[Repository<Album>] ~~> [TypeORM]
+[TypeORM] ~~> [Tabelle album]
+[TypeORM] ~~> [Tabelle kuenstler]
+[TypeORM] ~~> [Tabelle lied]
 
-[BuchService] ..> [MailService]
+[AlbumService] ..> [MailService]
 [MailService] ~~> [nodemailer]
 [nodemailer] ~~> [Mailserver]
 
-footer (c) Jürgen Zimmermann
+footer (c) Gruppe 4
 
 @enduml

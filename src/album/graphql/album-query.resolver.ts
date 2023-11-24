@@ -40,11 +40,11 @@ export class AlbumQueryResolver {
     }
 
     @Query('alben')
-    async find(@Args() kuenstler: { kuenstler: string } | undefined) {
-        const kuenstlerStr = kuenstler?.kuenstler;
+    async find(@Args() kuenstler: { name: string } | undefined) {
+        const kuenstlerStr = kuenstler?.name;
         this.#logger.debug('find: Suchkriterium kuenstler=%s', kuenstlerStr);
-        // eslint-disable-next-line max-len, prettier/prettier
-        const suchkriterium = kuenstlerStr === undefined ? {} : { kuenstler: kuenstlerStr };
+        const suchkriterium =
+            kuenstlerStr === undefined ? {} : { name: kuenstlerStr };
 
         const alben = await this.#service.find(suchkriterium);
 

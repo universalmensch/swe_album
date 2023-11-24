@@ -66,7 +66,7 @@ export type KuenstlerModel = Omit<Kuenstler, 'album' | 'id'>;
 /** Album-Objekt mit HATEOAS-Links */
 export type AlbumModel = Omit<
     Album,
-    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler'
+    'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler' | 'version'
 > & {
     kuenstler: KuenstlerModel;
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -93,12 +93,6 @@ export class AlbumQuery implements Suchkriterien {
 
     @ApiProperty({ required: false })
     declare readonly titelbild: string;
-
-    @ApiProperty({ required: false })
-    declare readonly javascript: string;
-
-    @ApiProperty({ required: false })
-    declare readonly typescript: string;
 
     @ApiProperty({ required: false })
     declare readonly kuenstler: string;
@@ -174,14 +168,14 @@ export class AlbumGetController {
             this.#logger.debug('getById(): kuenstler=%o', album.kuenstler);
         }
 
-        /**const versionDb = album.version;
+        const versionDb = album.version;
         if (version === `"${versionDb}"`) {
             this.#logger.debug('getById: NOT_MODIFIED');
             return res.sendStatus(HttpStatus.NOT_MODIFIED);
         }
         this.#logger.debug('getById: versionDb=%s', versionDb);
         res.header('ETag', `"${versionDb}"`);
-        */
+
         const albumModel = this.#toModel(album, req);
         this.#logger.debug('getById: albumModel=%o', albumModel);
         return res.contentType(APPLICATION_HAL_JSON).json(albumModel);

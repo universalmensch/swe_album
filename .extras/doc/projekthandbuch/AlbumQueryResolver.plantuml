@@ -1,0 +1,65 @@
+' Preview durch <Alt>d
+
+@startuml Controller-Klasse
+
+interface Promise<T>
+
+package @nestjs/graphql {
+  class "@Resolver" as Resolver
+  hide Resolver circle
+
+  class "@UseInterceptors" as UseInterceptors
+  hide UseInterceptors circle
+
+  class "@Query" as Query
+  hide Query circle
+
+  class "@Args" as Args
+  hide Args circle
+
+  Resolver .left[hidden].> Promise
+}
+
+package album {
+  package entity {
+    class Album <<entity>>
+  }
+
+  package service {
+    class AlbumReadService << control >>
+  }
+
+  package graphql #DDDDDD {
+    class "type AlbumDTO = Omit<Album, 'lieder' | 'aktualisiert' | 'erzeugt'" as AlbumDTO
+    hide AlbumDTO circle
+
+    interface IdInput {
+        id: number
+    }
+
+    class AlbumQueryResolver << control >> << @Resolver() >> << @UseInterceptors() >> {
+      + @Query() async album(@Args() id: IdInput): Promise<AlbumDTO>
+      + @Query() async alben(@Args() kuenstler: string | undefined): Promise<AlbumDTO[]>
+    }
+
+    AlbumQueryResolver o-up-> "1" AlbumReadService : service
+    AlbumQueryResolver ..> AlbumDTO
+    AlbumQueryResolver ..> IdInput
+    AlbumDTO ..> Album
+    AlbumQueryResolver ..> Resolver
+
+    AlbumQueryResolver ..> Promise
+
+    AlbumDTO .[hidden].> Album
+    Album .[hidden].> Promise
+    AlbumReadService .[hidden].> Promise
+    Album .[hidden].> Resolver
+    AlbumReadService .[hidden].> Resolver
+  }
+}
+
+hide empty members
+
+footer Gruppe 4
+
+@enduml

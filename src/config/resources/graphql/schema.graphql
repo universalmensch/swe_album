@@ -6,16 +6,12 @@ schema {
 type Mutation {
   create(input: AlbumInput!): CreatePayload
 
-  update(input: AlbumUpdateInput!): UpdatePayload
-
-  delete(id: ID!): Boolean
-
   login(username: String!, password: String!): LoginResult
 }
 
 "Funktionen, um Albendaten zu lesen"
 type Query {
-  alben(kuenstler: String): [Album!]
+  alben(name: String): [Album!]
   album(id: ID!): Album
 }
 
@@ -29,7 +25,7 @@ type Kuenstler {
 "Daten zu einem Lied eines Albums"
 type Lied {
   name: String!
-  dauer: Int
+  dauerInSekunden: Int
 }
 
 "Datenschema zu einem Album, das gelesen wird"
@@ -50,8 +46,8 @@ enum Genre {
 
 "Daten zum Kuenstler eines neuen Album"
 input KuenstlerInput {
+  name: String!
   vorname: String!
-  nachename: String!
   alter: Int
 }
 
@@ -72,19 +68,6 @@ input AlbumInput {
 
 type CreatePayload {
   id: Int
-}
-
-"Daten für ein zu änderndes Album"
-input AlbumUpdateInput {
-  id: ID
-  version: Int
-  genre: Genre
-  name: String!
-  titelbild: String!
-}
-
-type UpdatePayload {
-  version: Int
 }
 
 type LoginResult {

@@ -48,9 +48,7 @@ const { jwt } = config;
 const signOptions: SignOptions = {
     algorithm,
     expiresIn: (jwt?.expiresIn as string | undefined) ?? '1h',
-    issuer:
-        (jwt?.issuer as string | undefined) ??
-        'https://hka.de/JuergenZimmermann',
+    issuer: (jwt?.issuer as string | undefined) ?? 'https://hka.de/gruppe4',
 };
 
 const verifyOptions: VerifyOptions = {

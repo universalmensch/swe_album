@@ -68,15 +68,8 @@ export class QueryBuilder {
      * @param suchkriterien JSON-Objekt mit Suchkriterien
      * @returns QueryBuilder
      */
-    // eslint-disable-next-line max-lines-per-function
-    build({ kuenstler, javascript, typescript, ...props }: Suchkriterien) {
-        this.#logger.debug(
-            'build: kuenstler=%s, props=%o',
-            kuenstler,
-            javascript,
-            typescript,
-            props,
-        );
+    build({ name, ...props }: Suchkriterien) {
+        this.#logger.debug('build: kuenstler=%s, props=%o', name, props);
 
         let queryBuilder = this.#repo.createQueryBuilder(this.#albumAlias);
         queryBuilder.innerJoinAndSelect(
@@ -89,35 +82,13 @@ export class QueryBuilder {
         // Titel in der Query: Teilstring des Titels und "case insensitive"
         // CAVEAT: MySQL hat keinen Vergleich mit "case insensitive"
         // type-coverage:ignore-next-line
-        if (kuenstler !== undefined && typeof kuenstler === 'string') {
+        if (name !== undefined && typeof name === 'string') {
             const ilike =
                 typeOrmModuleOptions.type === 'postgres' ? 'ilike' : 'like';
             queryBuilder = queryBuilder.where(
-                `${this.#kuenstlerAlias}.kuenstler ${ilike} :kuenstler`,
-                { kuenstler: `%${kuenstler}%` },
+                `${this.#kuenstlerAlias}.name ${ilike} :name`,
+                { name: `%${name}%` },
             );
-            useWhere = false;
-        }
-
-        if (javascript === 'true') {
-            queryBuilder = useWhere
-                ? queryBuilder.where(
-                      `${this.#albumAlias}.lieder like '%JAVASCRIPT%'`,
-                  )
-                : queryBuilder.andWhere(
-                      `${this.#albumAlias}.lieder like '%JAVASCRIPT%'`,
-                  );
-            useWhere = false;
-        }
-
-        if (typescript === 'true') {
-            queryBuilder = useWhere
-                ? queryBuilder.where(
-                      `${this.#albumAlias}.lieder like '%TYPESCRIPT%'`,
-                  )
-                : queryBuilder.andWhere(
-                      `${this.#albumAlias}.lieder like '%TYPESCRIPT%'`,
-                  );
             useWhere = false;
         }
 

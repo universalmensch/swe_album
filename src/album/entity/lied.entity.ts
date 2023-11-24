@@ -10,8 +10,6 @@ import { Album } from './album.entity.js';
 @Entity()
 export class Lied {
     @Column('int')
-    // https://typeorm.io/entities#primary-columns
-    // CAVEAT: zuerst @Column() und erst dann @PrimaryGeneratedColumn()
     @PrimaryGeneratedColumn()
     id: number | undefined;
 
@@ -29,6 +27,6 @@ export class Lied {
         JSON.stringify({
             id: this.id,
             name: this.name,
-            dauer: String(this.dauerInSekunden),
+            dauerInSekunden: String(this.dauerInSekunden),
         });
 }

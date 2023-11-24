@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "c0848e02-346a-420e-9ede-002596aa7311",
+		"_postman_id": "f9275e1c-f1e8-4017-97af-c611e82bf2d3",
 		"name": "Dev",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30029937"
+		"_exporter_id": "30646332"
 	},
 	"item": [
 		{
@@ -57,7 +57,7 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "{{base_url}}/dev/db_populate",

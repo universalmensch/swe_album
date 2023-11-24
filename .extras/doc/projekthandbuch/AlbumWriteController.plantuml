@@ -66,47 +66,47 @@ package security.auth {
   Roles .right.> Role
 }
 
-package buch {
+package album {
   package entity #FFFFFF {
-    class Buch <<entity>>
+    class Album <<entity>>
 
-    Buch .[hidden].> Promise
-    Buch .[hidden].> Request
+    Album .[hidden].> Promise
+    Album .[hidden].> Request
   }
 
   package service {
-    class BuchWriteService << control >>
-    class BuchReadService << control >>
+    class AlbumWriteService << control >>
+    class AlbumReadService << control >>
   }
 
   package rest #DDDDDD {
-    class BuchWriteController << control >> << @Controller() >> << @UseGuards() >> << @UseInterceptors() >> {
-      + @Post() @Roles() async post(@Body() buch: Buch, @Req() req: Request,  @Res() res: Response): Promise<Response>
-      + @Put() @Roles() async put(@Body() buch: Buch, @Param() id: number, @Headers() version: string, @Res() res: Response): Promise<Response>
+    class AlbumWriteController << control >> << @Controller() >> << @UseGuards() >> << @UseInterceptors() >> {
+      + @Post() @Roles() async post(@Body() album: Album, @Req() req: Request,  @Res() res: Response): Promise<Response>
+      + @Put() @Roles() async put(@Body() album: Album, @Param() id: number, @Headers() version: string, @Res() res: Response): Promise<Response>
       + @Delete() @Roles() async delete(@Param() id: number, @Res() res: Response): Promise<Response>
     }
 
-    BuchWriteController o--> "1" BuchWriteService : service
-    BuchWriteController o--> "1" BuchReadService : readService
-    BuchWriteController ..up> Buch
+    AlbumWriteController o--> "1" AlbumWriteService : service
+    AlbumWriteController o--> "1" AlbumReadService : readService
+    AlbumWriteController ..up> Album
 
-    BuchWriteController ..> Controller
+    AlbumWriteController ..> Controller
 
-    BuchWriteController .up.> Roles
-    BuchWriteController .up.> Role
+    AlbumWriteController .up.> Roles
+    AlbumWriteController .up.> Role
 
-    BuchWriteController ..> Request
-    BuchWriteController ..> Response
-    BuchWriteController ..> Promise
+    AlbumWriteController ..> Request
+    AlbumWriteController ..> Response
+    AlbumWriteController ..> Promise
 
-    Buch .up[hidden].> Roles
-    BuchWriteService .[hidden].> Request
-    BuchWriteService .[hidden].> Promise
+    Album .up[hidden].> Roles
+    AlbumWriteService .[hidden].> Request
+    AlbumWriteService .[hidden].> Promise
   }
 }
 
 hide empty members
 
-footer (c) Juergen Zimmermann
+footer (c) Gruppe 4
 
 @enduml

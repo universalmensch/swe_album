@@ -95,7 +95,7 @@ services:
         source: C:/Zimmermann/volumes/postgres/pgadmin4
         target: /var/lib/pgadmin4
     env_file: pgadmin.env
-    #user: 'pgadmin:5050'
+    user: 'pgadmin:5050'
     hostname: pgadmin
     container_name: pgadmin
     # https://docs.docker.com/compose/compose-file/compose-file-v3/#cap_add-cap_drop
