@@ -104,7 +104,6 @@ export const startServer = async () => {
     );
 
     await server.listen(port);
-  
     return server;
 };
 
