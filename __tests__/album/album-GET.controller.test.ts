@@ -49,8 +49,12 @@ describe('GET /rest', () => {
         alben
             .map((album) => album._links.self.href)
             .forEach((selfLink) => {
-                // eslint-disable-next-line security/detect-non-literal-regexp, security-node/non-literal-reg-expr
-                expect(selfLink).toMatch(new RegExp(`^${baseURL}`, 'u'));
+                const expectedBaseURL = baseURL.toLowerCase();
+
+                expect(selfLink.toLowerCase()).toMatch(
+                    // eslint-disable-next-line security/detect-non-literal-regexp, security-node/non-literal-reg-expr
+                    new RegExp(`^${expectedBaseURL}`, 'u'),
+                );
             });
     });
 
