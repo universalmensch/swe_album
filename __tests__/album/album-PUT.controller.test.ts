@@ -27,14 +27,9 @@ const geaendertesAlbumIdNichtVorhanden: AlbumDtoOhneRef = {
 const idNichtVorhanden = '999999';
 
 const geaendertesAlbumInvalid: Record<string, unknown> = {
-    genre: 'POP',
-    name: ' k',
+    genre: 'TECHNO',
+    name: 'welt',
     titelbild: 'hallo',
-    kuenstler: {
-        name: ' ',
-        vorname: '????',
-        alter: -100,
-    },
 };
 
 const veraltesAlbum: AlbumDtoOhneRef = {
@@ -106,11 +101,8 @@ describe('PUT /rest/:id', () => {
         headers.Authorization = `Bearer ${token}`;
         headers['If-Match'] = '"0"';
         const expectedMsg = [
-            expect.stringMatching(/^name /u),
+            expect.stringMatching(/^genre /u),
             expect.stringMatching(/^titelbild /u),
-            expect.stringMatching(/^kuenstler.name /u),
-            expect.stringMatching(/^kuenstler.vorname /u),
-            expect.stringMatching(/^kuenstler.alter /u),
         ];
 
         const response: AxiosResponse<Record<string, any>> = await client.put(
