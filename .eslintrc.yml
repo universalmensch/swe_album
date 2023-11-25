@@ -154,7 +154,7 @@ rules:
         - PascalCase
   '@typescript-eslint/no-base-to-string':
     - error
-    - ignoredTypeNames: ["RegExp", "boolean", "ObjectID"]
+    - ignoredTypeNames: ['RegExp', 'boolean', 'ObjectID']
   '@typescript-eslint/no-confusing-void-expression':
     - error
     - ignoreArrowShorthand: true
@@ -504,7 +504,7 @@ rules:
   no-undef-init: error
   no-underscore-dangle:
     - error
-    - allow: ["_id", "__v"]
+    - allow: ['_id', '__v']
   no-unmodified-loop-condition: error
   no-unneeded-ternary: error
   no-unreachable-loop: error

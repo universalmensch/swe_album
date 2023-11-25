@@ -5,7 +5,7 @@
   "extends": "@tsconfig/node20/tsconfig.json",
   "ts-node": {
     "esm": true,
-    "module": "es2022",
+    "module": "es2022"
     // "experimentalSpecifierResolution": "node"
     // "transpileOnly": true,
     // "files": true,

@@ -2,7 +2,7 @@
 // https://asciidoctor-docs.netlify.com
 // https://asciidoctor.org
 
-import asciidoctor from '@asciidoctor/core'
+import asciidoctor from '@asciidoctor/core';
 // https://github.com/eshepelyuk/asciidoctor-plantuml.js ist deprecated
 import kroki from 'asciidoctor-kroki';
 import { join } from 'node:path';

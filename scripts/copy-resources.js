@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const { existsSync, mkdirSync } = fs;
 const { copySync } = fsExtra;
-const { join } = path
+const { join } = path;
 
 // BEACHTE: "assets" innerhalb von nest-cli.json werden bei "--watch" NICHT beruecksichtigt
 // https://docs.nestjs.com/cli/monorepo#global-compiler-options

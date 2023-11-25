@@ -38,32 +38,20 @@ import { getBaseUri } from './getBaseUri.js';
 import { getLogger } from '../../logger/logger.js';
 import { paths } from '../../config/paths.js';
 
-//import { Kuenstler } from '../entity/kuenstler.entity';
-
-/** href-Link für HATEOAS */
 export interface Link {
-    /** href-Link für HATEOAS-Links */
     readonly href: string;
 }
 
-/** Links für HATEOAS */
 export interface Links {
-    /** self-Link */
     readonly self: Link;
-    /** Optionaler Linke für list */
     readonly list?: Link;
-    /** Optionaler Linke für add */
     readonly add?: Link;
-    /** Optionaler Linke für update */
     readonly update?: Link;
-    /** Optionaler Linke für remove */
     readonly remove?: Link;
 }
 
-/** Typedefinition für ein Titel-Objekt ohne Rückwärtsverweis zum Album */
 export type KuenstlerModel = Omit<Kuenstler, 'album' | 'id'>;
 
-/** Album-Objekt mit HATEOAS-Links */
 export type AlbumModel = Omit<
     Album,
     'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'kuenstler' | 'version'
@@ -73,7 +61,6 @@ export type AlbumModel = Omit<
     _links: Links;
 };
 
-/** Album-Objekte mit HATEOAS-Links in einem JSON-Array. */
 export interface AlbenModel {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     _embedded: {
@@ -100,14 +87,9 @@ export class AlbumQuery implements Suchkriterien {
 
 const APPLICATION_HAL_JSON = 'application/hal+json';
 
-/**
- * Die Controller-Klasse für die Verwaltung von Bücher.
- */
 @Controller(paths.rest)
-// @UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Album REST-API')
-// @ApiBearerAuth()
 export class AlbumGetController {
     readonly #service: AlbumReadService;
 
@@ -118,8 +100,8 @@ export class AlbumGetController {
     }
 
     /**
-     * @param id Pfad-Parameter `id` ????????????????????????????????????????????
-     * @param req Request-Objekt von Express mit Pfadparameter, Query-String,
+     * @param id Pfad-Parameter `id`
+     * @param req Request-Objekt von Express
      *            Request-Header und Request-Body.
      * @param version Versionsnummer im Request-Header bei `If-None-Match`
      * @param accept Content-Type bzw. MIME-Type
@@ -189,7 +171,7 @@ export class AlbumGetController {
      */
     @Get()
     @ApiOperation({ summary: 'Suche mit Suchkriterien' })
-    @ApiOkResponse({ description: 'Eine evtl. leere Liste mit Büchern' })
+    @ApiOkResponse({ description: 'Eine evtl. leere Liste mit Alben' })
     async get(
         @Query() query: AlbumQuery,
         @Req() req: Request,
@@ -202,7 +184,7 @@ export class AlbumGetController {
             return res.sendStatus(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        const alben = await this.#service.find(query); // warum nicht automatisch albummodel
+        const alben = await this.#service.find(query);
         this.#logger.debug('get: %o', alben);
 
         const albenModel = alben.map((album) =>
