@@ -43,12 +43,8 @@ import { RolesGuard } from '../../security/auth/roles/roles.guard.js';
 import { getBaseUri } from './getBaseUri.js';
 import { getLogger } from '../../logger/logger.js';
 import { paths } from '../../config/paths.js';
-//import { Album } from '../entity/album.entity';
 
 const MSG_FORBIDDEN = 'Kein Token mit ausreichender Berechtigung vorhanden';
-/**
- * Die Controller-Klasse für die Verwaltung von Bücher.
- */
 @Controller(paths.rest)
 @UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(ResponseTimeInterceptor)
@@ -64,8 +60,6 @@ export class AlbumWriteController {
     }
 
     /**
-     * Album wird asynchron angelegt.
-     *
      * @param album JSON-Daten für ein Album im Request-Body.
      * @param res Leeres Response-Objekt von Express.
      * @returns Leeres Promise-Objekt.
@@ -92,8 +86,6 @@ export class AlbumWriteController {
     }
 
     /**
-     * Ein vorhandenes Album wird asynchron aktualisiert.
-     *
      * @param album Albumdaten im Body des Request-Objekts.
      * @param id Pfad-Paramater für die ID.
      * @param version Versionsnummer aus dem Header _If-Match_.
@@ -152,8 +144,6 @@ export class AlbumWriteController {
     }
 
     /**
-     * Ein Album wird anhand seiner ID-gelöscht.
-     *
      * @param id Pfad-Paramater für die ID.
      * @param res Leeres Response-Objekt von Express.
      * @returns Leeres Promise-Objekt.
@@ -201,7 +191,6 @@ export class AlbumWriteController {
             aktualisiert: undefined,
         };
 
-        // Rueckwaertsverweise
         album.kuenstler.album = album;
         album.lieder?.forEach((lied) => {
             lied.album = album;

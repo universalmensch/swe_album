@@ -10,7 +10,7 @@ scanner(
     {
         serverUrl: 'http://localhost:9000',
         options: {
-            'sonar.projectName': 'buch',
+            'sonar.projectName': 'album',
             'sonar.projectDescription': 'Beispiel fuer Software Engineering',
             'sonar.projectVersion': '2023.1.0',
             'sonar.sources': 'src',
