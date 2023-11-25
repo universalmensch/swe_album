@@ -10,7 +10,7 @@
 			"name": "Query",
 			"item": [
 				{
-					"name": "Suche genre, name, titelbild und kuenstler eines Albums mit der ID 1",
+					"name": "Suche version, genre, name, titelbild und kuenstler eines Albums mit der ID 1",
 					"event": [
 						{
 							"listen": "test",
@@ -27,7 +27,8 @@
 									"pm.test('Body mit den Properties', () => {\r",
 									"    const body = pm.response.json();\r",
 									"    const { album } = body.data;\r",
-									"    const { genre, name, titelbild, kuenstler } = album;\r",
+									"    const { genre, version, name, titelbild, kuenstler } = album;\r",
+									"    pm.expect(version).to.be.a('number').that.is.gte(0);\r",
 									"    pm.expect(genre).to.be.a('string');\r",
 									"    pm.expect(name).to.be.a('string');\r",
 									"    pm.expect(titelbild).to.be.a('string');\r",
@@ -46,7 +47,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query ($id: ID! = \"10\") {\r\n  album(id: $id) {\r\n    genre\r\n    name\r\n    titelbild\r\n     kuenstler {\r\n      name\r\n      vorname\r\n      alter\r\n    }\r\n  }\r\n}",
+								"query": "query ($id: ID! = \"10\") {\r\n  album(id: $id) {\r\n    version\r\n    genre\r\n    name\r\n    titelbild\r\n     kuenstler {\r\n      name\r\n      vorname\r\n      alter\r\n    }\r\n  }\r\n}",
 								"variables": "{\r\n  \"id\": \"10\"\r\n}"
 							}
 						},
@@ -74,16 +75,15 @@
 									"    const contentType = response.headers.get('Content-Type');\r",
 									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
 									"});\r",
-									"pm.test('Body mit den Properties', () => {\r",
+									"pm.test('Body mit errors', () => {\r",
 									"    const body = pm.response.json();\r",
-									"    const { album } = body.data;\r",
-									"    const { genre, name, titelbild, kuenstler } = album;\r",
-									"    pm.expect(genre).to.be.a('string');\r",
-									"    pm.expect(name).to.be.a('string');\r",
-									"    pm.expect(titelbild).to.be.a('string');\r",
-									"    pm.expect(kuenstler.name).to.be.a('string');\r",
-									"    pm.expect(kuenstler.vorname).to.be.a('string');\r",
-									"    pm.expect(kuenstler.alter).to.be.a('number');\r",
+									"    const { errors } = body;\r",
+									"    pm.expect(errors).to.be.an('array').that.has.a.lengthOf(1);\r",
+									"    const { message, path, extensions } = errors[0];\r",
+									"    pm.expect(message).to.include('9999');\r",
+									"    pm.expect(path).to.be.an('array').that.has.a.lengthOf(1);\r",
+									"    pm.expect(path[0]).to.be.equal('album');\r",
+									"    pm.expect(extensions.code).to.be.equal('BAD_USER_INPUT');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -129,10 +129,10 @@
 									"    const { alben } = body.data;\r",
 									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
 									"    alben.forEach(album => {\r",
-									"        const { id, name, genre, kuenstler } = album;\r",
+									"        const { id, version, name, genre, kuenstler } = album;\r",
 									"        pm.expect(id).to.be.a('number').that.is.gte(0);\r",
+									"        pm.expect(version).to.be.a('number').that.is.gte(0);\r",
 									"        pm.expect(name).to.be.a('string');\r",
-									"        pm.expect(genre).to.be.a('string');\r",
 									"        pm.expect(genre).to.be.a('string');\r",
 									"        pm.expect(kuenstler.name).to.be.a('string');\r",
 									"        pm.expect(kuenstler.vorname).to.be.a('string');\r",
@@ -149,7 +149,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\r\n  alben {\r\n    id\r\n    name\r\n    genre\r\n    kuenstler {\r\n        name\r\n        vorname\r\n    }\r\n  }\r\n}",
+								"query": "{\r\n  alben {\r\n    id\r\n    version\r\n    name\r\n    genre\r\n    kuenstler {\r\n        name\r\n        vorname\r\n    }\r\n  }\r\n}",
 								"variables": ""
 							}
 						},
@@ -163,7 +163,7 @@
 					"response": []
 				},
 				{
-					"name": "Suche name, titelbild von allen Alben mit dem Genre RAP",
+					"name": "Suche name und titelbild von allen Alben mit dem Kuenstler Kraus",
 					"event": [
 						{
 							"listen": "test",
@@ -195,53 +195,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query ($genre: Genre = RAP) {\r\n  albenMitGenre(genre: $genre) {\r\n    name\r\n    titelbild\r\n    genre\r\n  }\r\n}",
-								"variables": "{\r\n      \"genre\": \"RAP\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche name, titelbild, kuenstler von allen Alben mit dem Kuenstler Kraus",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit name', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { alben } = body.data;\r",
-									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
-									"    alben.map(album => album.name)\r",
-									"        .forEach(name => pm.expect(name).to.be.a('string'));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($name: String = \"Kraus\") {\r\n  alben(name: $name) {\r\n    name\r\n    titelbild\r\n    kuenstler {\r\n        name\r\n    }\r\n  }\r\n}",
+								"query": "query ($name: String = \"Kraus\") {\r\n  alben(name: $name) {\r\n    name\r\n    titelbild\r\n  }\r\n}",
 								"variables": "{\r\n      \"kuenstler\": \"Kraus\"\r\n}"
 							}
 						},

@@ -11,8 +11,10 @@ type Mutation {
 
 "Funktionen, um Albendaten zu lesen"
 type Query {
-  alben(name: String): [Album!]
   album(id: ID!): Album
+
+  # Suche Alben anhand des Namen des Kuenstlers
+  alben(name: String): [Album!]
 }
 
 "Daten zum Kuenstler eines Albums"
@@ -31,6 +33,7 @@ type Lied {
 "Datenschema zu einem Album, das gelesen wird"
 type Album {
   id: Int!
+  version: Int!
   genre: Genre
   kuenstler: Kuenstler!
   name: String!
