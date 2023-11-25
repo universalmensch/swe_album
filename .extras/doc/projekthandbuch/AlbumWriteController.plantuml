@@ -57,7 +57,7 @@ package express {
 }
 
 package security.auth {
-  class "type Role = 'ADMIN' | 'MITARBEITER' | 'KUNDE'" as Role
+  class "type Role = 'ADMIN' | 'MUSIKREDAKTEUR'" as Role
   hide Role circle
 
   class "@Roles" as Roles

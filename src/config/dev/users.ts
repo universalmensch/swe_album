@@ -21,6 +21,6 @@ export const users: User[] = [
         username: 'adriana.alpha',
         password,
         email: 'adriana.alpha@acme.com',
-        roles: ['album'],
+        roles: ['musikredakteur'],
     },
 ];
