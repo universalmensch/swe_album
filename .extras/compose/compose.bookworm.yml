@@ -1,4 +1,3 @@
 services:
   album:
     image: gruppe4/album:2023.10.0-bookworm
- 

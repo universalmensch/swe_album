@@ -1,537 +1,513 @@
 {
-	"info": {
-		"_postman_id": "0705d9aa-e95f-45a1-bf4f-3d13f7ffcda6",
-		"name": "GraphQL",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30646332"
-	},
-	"item": [
-		{
-			"name": "Query",
-			"item": [
-				{
-					"name": "Suche genre, name, titelbild und kuenstler eines Albums mit der ID 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit den Properties', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { album } = body.data;\r",
-									"    const { genre, name, titelbild, kuenstler } = album;\r",
-									"    pm.expect(genre).to.be.a('string');\r",
-									"    pm.expect(name).to.be.a('string');\r",
-									"    pm.expect(titelbild).to.be.a('string');\r",
-									"    pm.expect(kuenstler.name).to.be.a('string');\r",
-									"    pm.expect(kuenstler.vorname).to.be.a('string');\r",
-									"    pm.expect(kuenstler.alter).to.be.a('number');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($id: ID! = \"10\") {\r\n  album(id: $id) {\r\n    genre\r\n    name\r\n    titelbild\r\n     kuenstler {\r\n      name\r\n      vorname\r\n      alter\r\n    }\r\n  }\r\n}",
-								"variables": "{\r\n  \"id\": \"10\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche genre, name, titelbild und kuenstler eines Albums mit nicht vorhandener ID 9999",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit den Properties', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { album } = body.data;\r",
-									"    const { genre, name, titelbild, kuenstler } = album;\r",
-									"    pm.expect(genre).to.be.a('string');\r",
-									"    pm.expect(name).to.be.a('string');\r",
-									"    pm.expect(titelbild).to.be.a('string');\r",
-									"    pm.expect(kuenstler.name).to.be.a('string');\r",
-									"    pm.expect(kuenstler.vorname).to.be.a('string');\r",
-									"    pm.expect(kuenstler.alter).to.be.a('number');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($id: ID! = \"9999\") {\r\n  album(id: $id) {\r\n    genre\r\n    name\r\n    titelbild\r\n     kuenstler {\r\n      name\r\n      vorname\r\n      alter\r\n    }\r\n  }\r\n}",
-								"variables": "{\r\n  \"id\": \"9999\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche id, name, genre, kuenstler von allen Alben",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit den Properties', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { alben } = body.data;\r",
-									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
-									"    alben.forEach(album => {\r",
-									"        const { id, name, genre, kuenstler } = album;\r",
-									"        pm.expect(id).to.be.a('number').that.is.gte(0);\r",
-									"        pm.expect(name).to.be.a('string');\r",
-									"        pm.expect(genre).to.be.a('string');\r",
-									"        pm.expect(genre).to.be.a('string');\r",
-									"        pm.expect(kuenstler.name).to.be.a('string');\r",
-									"        pm.expect(kuenstler.vorname).to.be.a('string');\r",
-									"    });\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "{\r\n  alben {\r\n    id\r\n    name\r\n    genre\r\n    kuenstler {\r\n        name\r\n        vorname\r\n    }\r\n  }\r\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche name, titelbild von allen Alben mit dem Genre RAP",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit name', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { alben } = body.data;\r",
-									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
-									"    alben.map(album => album.name)\r",
-									"        .forEach(name => pm.expect(name).to.be.a('string'));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($genre: Genre = RAP) {\r\n  albenMitGenre(genre: $genre) {\r\n    name\r\n    titelbild\r\n    genre\r\n  }\r\n}",
-								"variables": "{\r\n      \"genre\": \"RAP\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche name, titelbild, kuenstler von allen Alben mit dem Kuenstler Kraus",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit name', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { alben } = body.data;\r",
-									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
-									"    alben.map(album => album.name)\r",
-									"        .forEach(name => pm.expect(name).to.be.a('string'));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($name: String = \"Kraus\") {\r\n  alben(name: $name) {\r\n    name\r\n    titelbild\r\n    kuenstler {\r\n        name\r\n    }\r\n  }\r\n}",
-								"variables": "{\r\n      \"kuenstler\": \"Kraus\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche name von Alben mit nicht vorhandenem Kuenstler NichtVorhanden",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit errors', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { errors } = body;\r",
-									"    pm.expect(errors).to.be.an('array').that.has.a.lengthOf(1);\r",
-									"    const { message, path, extensions } = errors[0];\r",
-									"    pm.expect(message).to.be.a('string').that.includes('NichtVorhanden');\r",
-									"    pm.expect(path).to.be.an('array').that.has.a.lengthOf(1);\r",
-									"    pm.expect(path[0]).to.be.equal('alben');\r",
-									"    pm.expect(extensions.code).to.be.equal('BAD_USER_INPUT');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($name: String = \"NichtVorhanden\") {\r\n  alben(name: $name) {\r\n    name\r\n  }\r\n}",
-								"variables": "{\r\n      \"kuenstler\": \"NichtVorhanden\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Suche name, titelbild, kuenstler von allen Alben mit Teilstring \"u\" im Namen des Kuenstlers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit name, titelbild, kuenstler', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { alben } = body.data;\r",
-									"    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
-									"    alben.forEach(album => {\r",
-									"        const { name, titelbild, kuenstler } = album;\r",
-									"        pm.expect(name).to.be.a('string');\r",
-									"        pm.expect(titelbild).to.be.a('string');\r",
-									"        pm.expect(kuenstler.name).to.be.a('string').that.includes('u');\r",
-									"    });\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query ($name: String = \"u\") {\r\n  alben(name: $name) {\r\n    name\r\n    titelbild\r\n    kuenstler {\r\n        name\r\n    }\r\n  }\r\n}",
-								"variables": "{\r\n      \"kuenstler\": \"u\"\r\n}"
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Mutation",
-			"item": [
-				{
-					"name": "Neues Album",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Body mit den Properties', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { data } = body;\r",
-									"    pm.expect(data.create.id).to.be.a('number').that.is.gte(0);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation {\r\n  create(\r\n    input: {\r\n      genre: POP,\r\n      name: \"Autumn Variations\",\r\n      titelbild: \"variations.png\",\r\n      kuenstler: {\r\n        name: \"Sheeran\",\r\n        vorname: \"Ed\",\r\n        alter: 32\r\n      },\r\n      lieder: [{\r\n        name: \"England\",\r\n        dauerInSekunden: 226\r\n      }]\r\n    }\r\n  ) {\r\n      id\r\n  }\r\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Neues Album mit ungültigen Daten",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Statuscode 200', () => {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test('Content-Type application/json', () => {\r",
-									"    const { response } = pm;\r",
-									"    const contentType = response.headers.get('Content-Type');\r",
-									"    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
-									"});\r",
-									"pm.test('Fehlermeldungen im Response Body', () => {\r",
-									"    const body = pm.response.json();\r",
-									"    const { errors } = body;\r",
-									"    pm.expect(errors).to.be.an('array').that.has.a.lengthOf(1);\r",
-									"    const { message, path, extensions } = errors[0];\r",
-									"    pm.expect(message).to.be.a('string');\r",
-									"    const props = ['name', 'titelbild', 'kuenstler.name', 'kuenstler.vorname','kuenstler.alter', 'lieder.0.name', 'lieder.0.dauerInSekunden'];\r",
-									"    props.forEach(prop => pm.expect(message).to.include(prop));\r",
-									"    pm.expect(path).to.be.an('array').that.has.a.lengthOf(1);\r",
-									"    pm.expect(path[0]).to.be.equal('create');\r",
-									"    pm.expect(extensions.code).to.be.equal('BAD_USER_INPUT');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation {\r\n  create(\r\n    input: {\r\n      genre: POP,\r\n      name: \"############\",\r\n      titelbild: \"variations.exe\",\r\n      kuenstler: {\r\n        name: \"?!\",\r\n        vorname: \"$%\",\r\n        alter: -120\r\n      },\r\n      lieder: [{\r\n        name: \"!Hello\",\r\n        dauerInSekunden: -300\r\n      }]\r\n    }\r\n  ) {\r\n      id\r\n  }\r\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "{{graphql_url}}",
-							"host": [
-								"{{graphql_url}}"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"auth": {
-				"type": "bearer",
-				"bearer": [
-					{
-						"key": "token",
-						"value": "{{TOKEN}}",
-						"type": "string"
-					}
-				]
-			},
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"pm.sendRequest({",
-							"    url: 'https://localhost:3000/graphql',",
-							"    method: 'POST',",
-							"    header: {",
-							"        'Content-Type': 'application/json',",
-							"    },",
-							"    body: JSON.stringify({",
-							"        query: `",
-							"            mutation {",
-							"                login(username: \"admin\", password: \"p\") {",
-							"                    token",
-							"                }",
-							"            }",
-							"        `",
-							"    })",
-							"}, (err, res) => {",
-							"    pm.collectionVariables.set('TOKEN', res.json().data.login.token);",
-							"});"
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "graphql_url",
-			"value": "{{base_url}}/graphql"
-		},
-		{
-			"key": "TOKEN",
-			"value": "",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "0705d9aa-e95f-45a1-bf4f-3d13f7ffcda6",
+    "name": "GraphQL",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30646332"
+  },
+  "item": [
+    {
+      "name": "Query",
+      "item": [
+        {
+          "name": "Suche genre, name, titelbild und kuenstler eines Albums mit der ID 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit den Properties', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { album } = body.data;\r",
+                  "    const { genre, name, titelbild, kuenstler } = album;\r",
+                  "    pm.expect(genre).to.be.a('string');\r",
+                  "    pm.expect(name).to.be.a('string');\r",
+                  "    pm.expect(titelbild).to.be.a('string');\r",
+                  "    pm.expect(kuenstler.name).to.be.a('string');\r",
+                  "    pm.expect(kuenstler.vorname).to.be.a('string');\r",
+                  "    pm.expect(kuenstler.alter).to.be.a('number');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query ($id: ID! = \"10\") {\r\n  album(id: $id) {\r\n    genre\r\n    name\r\n    titelbild\r\n     kuenstler {\r\n      name\r\n      vorname\r\n      alter\r\n    }\r\n  }\r\n}",
+                "variables": "{\r\n  \"id\": \"10\"\r\n}"
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suche genre, name, titelbild und kuenstler eines Albums mit nicht vorhandener ID 9999",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit den Properties', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { album } = body.data;\r",
+                  "    const { genre, name, titelbild, kuenstler } = album;\r",
+                  "    pm.expect(genre).to.be.a('string');\r",
+                  "    pm.expect(name).to.be.a('string');\r",
+                  "    pm.expect(titelbild).to.be.a('string');\r",
+                  "    pm.expect(kuenstler.name).to.be.a('string');\r",
+                  "    pm.expect(kuenstler.vorname).to.be.a('string');\r",
+                  "    pm.expect(kuenstler.alter).to.be.a('number');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query ($id: ID! = \"9999\") {\r\n  album(id: $id) {\r\n    genre\r\n    name\r\n    titelbild\r\n     kuenstler {\r\n      name\r\n      vorname\r\n      alter\r\n    }\r\n  }\r\n}",
+                "variables": "{\r\n  \"id\": \"9999\"\r\n}"
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suche id, name, genre, kuenstler von allen Alben",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit den Properties', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { alben } = body.data;\r",
+                  "    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
+                  "    alben.forEach(album => {\r",
+                  "        const { id, name, genre, kuenstler } = album;\r",
+                  "        pm.expect(id).to.be.a('number').that.is.gte(0);\r",
+                  "        pm.expect(name).to.be.a('string');\r",
+                  "        pm.expect(genre).to.be.a('string');\r",
+                  "        pm.expect(genre).to.be.a('string');\r",
+                  "        pm.expect(kuenstler.name).to.be.a('string');\r",
+                  "        pm.expect(kuenstler.vorname).to.be.a('string');\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "{\r\n  alben {\r\n    id\r\n    name\r\n    genre\r\n    kuenstler {\r\n        name\r\n        vorname\r\n    }\r\n  }\r\n}",
+                "variables": ""
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suche name, titelbild von allen Alben mit dem Genre RAP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit name', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { alben } = body.data;\r",
+                  "    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
+                  "    alben.map(album => album.name)\r",
+                  "        .forEach(name => pm.expect(name).to.be.a('string'));\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query ($genre: Genre = RAP) {\r\n  albenMitGenre(genre: $genre) {\r\n    name\r\n    titelbild\r\n    genre\r\n  }\r\n}",
+                "variables": "{\r\n      \"genre\": \"RAP\"\r\n}"
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suche name, titelbild, kuenstler von allen Alben mit dem Kuenstler Kraus",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit name', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { alben } = body.data;\r",
+                  "    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
+                  "    alben.map(album => album.name)\r",
+                  "        .forEach(name => pm.expect(name).to.be.a('string'));\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query ($name: String = \"Kraus\") {\r\n  alben(name: $name) {\r\n    name\r\n    titelbild\r\n    kuenstler {\r\n        name\r\n    }\r\n  }\r\n}",
+                "variables": "{\r\n      \"kuenstler\": \"Kraus\"\r\n}"
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suche name von Alben mit nicht vorhandenem Kuenstler NichtVorhanden",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit errors', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { errors } = body;\r",
+                  "    pm.expect(errors).to.be.an('array').that.has.a.lengthOf(1);\r",
+                  "    const { message, path, extensions } = errors[0];\r",
+                  "    pm.expect(message).to.be.a('string').that.includes('NichtVorhanden');\r",
+                  "    pm.expect(path).to.be.an('array').that.has.a.lengthOf(1);\r",
+                  "    pm.expect(path[0]).to.be.equal('alben');\r",
+                  "    pm.expect(extensions.code).to.be.equal('BAD_USER_INPUT');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query ($name: String = \"NichtVorhanden\") {\r\n  alben(name: $name) {\r\n    name\r\n  }\r\n}",
+                "variables": "{\r\n      \"kuenstler\": \"NichtVorhanden\"\r\n}"
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suche name, titelbild, kuenstler von allen Alben mit Teilstring \"u\" im Namen des Kuenstlers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit name, titelbild, kuenstler', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { alben } = body.data;\r",
+                  "    pm.expect(alben).to.be.an('array').that.is.not.empty;\r",
+                  "    alben.forEach(album => {\r",
+                  "        const { name, titelbild, kuenstler } = album;\r",
+                  "        pm.expect(name).to.be.a('string');\r",
+                  "        pm.expect(titelbild).to.be.a('string');\r",
+                  "        pm.expect(kuenstler.name).to.be.a('string').that.includes('u');\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query ($name: String = \"u\") {\r\n  alben(name: $name) {\r\n    name\r\n    titelbild\r\n    kuenstler {\r\n        name\r\n    }\r\n  }\r\n}",
+                "variables": "{\r\n      \"kuenstler\": \"u\"\r\n}"
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Mutation",
+      "item": [
+        {
+          "name": "Neues Album",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Body mit den Properties', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { data } = body;\r",
+                  "    pm.expect(data.create.id).to.be.a('number').that.is.gte(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation {\r\n  create(\r\n    input: {\r\n      genre: POP,\r\n      name: \"Autumn Variations\",\r\n      titelbild: \"variations.png\",\r\n      kuenstler: {\r\n        name: \"Sheeran\",\r\n        vorname: \"Ed\",\r\n        alter: 32\r\n      },\r\n      lieder: [{\r\n        name: \"England\",\r\n        dauerInSekunden: 226\r\n      }]\r\n    }\r\n  ) {\r\n      id\r\n  }\r\n}",
+                "variables": ""
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Neues Album mit ungültigen Daten",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statuscode 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test('Content-Type application/json', () => {\r",
+                  "    const { response } = pm;\r",
+                  "    const contentType = response.headers.get('Content-Type');\r",
+                  "    pm.expect(contentType).to.match(/^application\\/json(; charset=utf-8)?/u);\r",
+                  "});\r",
+                  "pm.test('Fehlermeldungen im Response Body', () => {\r",
+                  "    const body = pm.response.json();\r",
+                  "    const { errors } = body;\r",
+                  "    pm.expect(errors).to.be.an('array').that.has.a.lengthOf(1);\r",
+                  "    const { message, path, extensions } = errors[0];\r",
+                  "    pm.expect(message).to.be.a('string');\r",
+                  "    const props = ['name', 'titelbild', 'kuenstler.name', 'kuenstler.vorname','kuenstler.alter', 'lieder.0.name', 'lieder.0.dauerInSekunden'];\r",
+                  "    props.forEach(prop => pm.expect(message).to.include(prop));\r",
+                  "    pm.expect(path).to.be.an('array').that.has.a.lengthOf(1);\r",
+                  "    pm.expect(path[0]).to.be.equal('create');\r",
+                  "    pm.expect(extensions.code).to.be.equal('BAD_USER_INPUT');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation {\r\n  create(\r\n    input: {\r\n      genre: POP,\r\n      name: \"############\",\r\n      titelbild: \"variations.exe\",\r\n      kuenstler: {\r\n        name: \"?!\",\r\n        vorname: \"$%\",\r\n        alter: -120\r\n      },\r\n      lieder: [{\r\n        name: \"!Hello\",\r\n        dauerInSekunden: -300\r\n      }]\r\n    }\r\n  ) {\r\n      id\r\n  }\r\n}",
+                "variables": ""
+              }
+            },
+            "url": {
+              "raw": "{{graphql_url}}",
+              "host": ["{{graphql_url}}"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{TOKEN}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.sendRequest({",
+              "    url: 'https://localhost:3000/graphql',",
+              "    method: 'POST',",
+              "    header: {",
+              "        'Content-Type': 'application/json',",
+              "    },",
+              "    body: JSON.stringify({",
+              "        query: `",
+              "            mutation {",
+              "                login(username: \"admin\", password: \"p\") {",
+              "                    token",
+              "                }",
+              "            }",
+              "        `",
+              "    })",
+              "}, (err, res) => {",
+              "    pm.collectionVariables.set('TOKEN', res.json().data.login.token);",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "graphql_url",
+      "value": "{{base_url}}/graphql"
+    },
+    {
+      "key": "TOKEN",
+      "value": "",
+      "type": "string"
+    }
+  ]
 }
