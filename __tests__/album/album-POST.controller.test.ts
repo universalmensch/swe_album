@@ -127,7 +127,8 @@ describe('POST /rest', () => {
     });
 
     test('Neues Album als Kunde', async () => {
-        const token = await loginRest(client, 'adriana.alpha', 'p');
+        const token =
+            'ich bin Hörer lasst mich mal mein Lieblingsalbum anlegen';
         headers.Authorization = `Bearer ${token}`;
 
         const response: AxiosResponse<Record<string, any>> = await client.post(
