@@ -4,7 +4,7 @@
 
 actor Gast
 actor Admin
-actor Kunde
+actor Musikredakteur
 
 rectangle album {
     Gast --> (Album suchen)
@@ -12,9 +12,9 @@ rectangle album {
     Admin --> (Album anlegen)
     Admin --> (Album ändern)
     Admin --> (Album löschen)
-    Kunde --> (Album suchen)
-    Kunde --> (Album anlegen)
-    Kunde --> (Album ändern)
+    Musikredakteur --> (Album suchen)
+    Musikredakteur --> (Album anlegen)
+    Musikredakteur --> (Album ändern)
 }
 
 footer (c) Gruppe 4 

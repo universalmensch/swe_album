@@ -30,7 +30,7 @@ export class AlbumMutationResolver {
     }
 
     @Mutation()
-    @RolesAllowed('admin')
+    @RolesAllowed('admin', 'musikredakteur')
     async create(@Args('input') albumDTO: AlbumDTO) {
         this.#logger.debug('create: albumDTO=%o', albumDTO);
 
