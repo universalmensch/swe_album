@@ -73,9 +73,6 @@ export class AlbumQuery implements Suchkriterien {
     declare readonly name: string;
 
     @ApiProperty({ required: false })
-    declare readonly alter: number;
-
-    @ApiProperty({ required: false })
     declare readonly genre: Genre;
 
     @ApiProperty({ required: false })
