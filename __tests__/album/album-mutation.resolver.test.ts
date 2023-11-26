@@ -145,7 +145,8 @@ describe('GraphQL Mutations', () => {
     });
 
     test('Neues Album nur als "admin"/"musikredakteur"', async () => {
-        const token = await loginGraphQL(client, 'adriana.alpha', 'p');
+        const token =
+            'ich bin Hörer lasst mich mal mein Lieblingsalbum anlegen';
         const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
         const body: GraphQLQuery = {
             query: `
